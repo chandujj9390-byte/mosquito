@@ -12,6 +12,21 @@
   status = 200
 
 [[redirects]]
+  from = "/styles/*"
+  to = "/styles/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/js/*"
+  to = "/js/:splat"
+  status = 200
+
+[[redirects]]
+  from = "/logo.svg"
+  to = "/assets/logo.svg"
+  status = 200
+
+[[redirects]]
   from = "/checkout"
   to = "/checkout.html"
   status = 200
