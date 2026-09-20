@@ -465,7 +465,6 @@ class AppManager {
           <!-- Image Container with Square Sharp Look & Hover Quick View -->
           <div class="relative w-full aspect-[4/5] overflow-hidden bg-neutral-100 cursor-pointer" onclick="appManager.openQuickView('${product.id}')">
             <img src="${product.images[0]}" alt="${product.name}" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 primary-img" loading="lazy"/>
-            ${product.images[1] ? `<img src="${product.images[1]}" alt="${product.name} back" class="secondary-img w-full h-full object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" loading="lazy"/>` : ''}
 
             <!-- Top Left Black Solid Rectangle Badge (MSQ PICK / VD PICK style) -->
             ${product.badge ? `
@@ -494,23 +493,6 @@ class AppManager {
               </button>
 
             </div>
-
-            <!-- Quick Add Slide Tray (Hover) -->
-            ${product.inStock ? `
-              <div class="quick-add-tray z-20" onclick="event.stopPropagation()">
-                <div class="text-[11px] font-mono text-neutral-500 uppercase mb-1.5 flex justify-between">
-                  <span>Quick Add:</span>
-                  <span class="text-neutral-900 font-sans">${product.fit} Cut</span>
-                </div>
-                <div class="flex items-center gap-1.5">
-                  ${product.sizes.map(sz => `
-                    <button onclick="cartManager.addItem('${product.id}', '${sz}', '${product.colors[0]?.name}', '${product.fit}')" class="flex-1 py-1.5 bg-white border border-neutral-200 hover:border-black hover:bg-black hover:text-white text-neutral-800 rounded-none text-xs font-mono font-medium transition-all shadow-sm">
-                      ${sz}
-                    </button>
-                  `).join('')}
-                </div>
-              </div>
-            ` : ''}
 
           </div>
 

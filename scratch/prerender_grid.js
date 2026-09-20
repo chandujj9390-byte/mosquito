@@ -6,7 +6,6 @@ const productsFile = path.join(rootDir, 'js', 'products.js');
 const indexFile = path.join(rootDir, 'index.html');
 
 let prodCode = fs.readFileSync(productsFile, 'utf8');
-let sandbox = { window: {} };
 eval(prodCode.replace('const PRODUCTS =', 'global.PRODUCTS ='));
 
 let menProducts = global.PRODUCTS.filter(p => p.collection === 'men');
@@ -18,7 +17,6 @@ function renderCard(product) {
           <!-- Image Container with Square Sharp Look & Hover Quick View -->
           <div class="relative w-full aspect-[4/5] overflow-hidden bg-neutral-100 cursor-pointer" onclick="appManager.openQuickView('${product.id}')">
             <img src="${product.images[0]}" alt="${product.name}" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 primary-img" loading="lazy"/>
-            ${product.images[1] ? `<img src="${product.images[1]}" alt="${product.name} back" class="secondary-img w-full h-full object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" loading="lazy"/>` : ''}
 
             <!-- Top Left Black Solid Rectangle Badge (MSQ PICK / VD PICK style) -->
             ${product.badge ? `
@@ -40,13 +38,6 @@ function renderCard(product) {
                 <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
                 </svg>
-              </button>
-            </div>
-
-            <!-- Bottom Floating 'QUICK ADD +' Overlay (Matching Reference Image 2) -->
-            <div class="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
-              <button onclick="appManager.openQuickView('${product.id}')" class="w-full py-2.5 bg-black/90 hover:bg-black text-white text-[11px] uppercase tracking-wider font-sans font-bold flex items-center justify-center gap-1.5 backdrop-blur-sm shadow-md transition-all">
-                <span>QUICK ADD +</span>
               </button>
             </div>
           </div>
@@ -79,13 +70,21 @@ let cardsHtml = menProducts.map(renderCard).join('\n');
 
 let indexHtml = fs.readFileSync(indexFile, 'utf8');
 
-const targetRegex = /<div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">[\s\S]*?<\/div>/;
-const replacement = `<div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">\n${cardsHtml}\n      </div>`;
+// Match everything between <div id="products-grid" ...> and the corresponding closing </div> before </main>
+const startTag = '<div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">';
+const startIndex = indexHtml.indexOf(startTag);
 
-if (targetRegex.test(indexHtml)) {
-  indexHtml = indexHtml.replace(targetRegex, replacement);
-  fs.writeFileSync(indexFile, indexHtml, 'utf8');
-  console.log('Successfully pre-rendered', menProducts.length, 'cards into index.html');
+if (startIndex !== -1) {
+  const containerClose = indexHtml.indexOf('</div>\n    </div>\n  </main>', startIndex);
+  if (containerClose !== -1) {
+    const before = indexHtml.substring(0, startIndex + startTag.length);
+    const after = indexHtml.substring(containerClose);
+    indexHtml = before + '\n' + cardsHtml + '\n      ' + after;
+    fs.writeFileSync(indexFile, indexHtml, 'utf8');
+    console.log('Successfully updated index.html with clean cards (removed Quick Add and secondary hover images).');
+  } else {
+    console.error('Could not find container close marker');
+  }
 } else {
-  console.error('Target regex not matched in index.html');
+  console.error('Could not find startTag in index.html');
 }
