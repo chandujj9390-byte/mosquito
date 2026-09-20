@@ -1,18 +1,14 @@
 {
   "version": 2,
   "framework": null,
+  "buildCommand": null,
+  "outputDirectory": ".",
   "cleanUrls": true,
   "trailingSlash": false,
-  "routes": [
-    { "src": "/assets/(.*)", "dest": "/assets/$1" },
-    { "src": "/public/(.*)", "dest": "/public/$1" },
-    { "src": "/styles/(.*)", "dest": "/styles/$1" },
-    { "src": "/js/(.*)", "dest": "/js/$1" },
-    { "src": "/logo.svg", "dest": "/assets/logo.svg" },
-    { "src": "/checkout", "dest": "/checkout.html" },
-    { "src": "/payment", "dest": "/payment.html" },
-    { "src": "/order-success", "dest": "/order-success.html" },
-    { "src": "/", "dest": "/index.html" },
-    { "src": "/(.*)", "dest": "/$1" }
+  "rewrites": [
+    { "source": "/logo.svg", "destination": "/assets/logo.svg" },
+    { "source": "/checkout", "destination": "/checkout.html" },
+    { "source": "/payment", "destination": "/payment.html" },
+    { "source": "/order-success", "destination": "/order-success.html" }
   ]
 }
