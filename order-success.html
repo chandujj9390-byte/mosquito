@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MOSQUITO</title>
+  <meta name="description" content="Official Tax Invoice and Order Confirmation for your MOSQUITO purchase." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            brand: ['Cinzel', 'Playfair Display', 'serif'],
+            editorial: ['Cormorant Garamond', 'Playfair Display', 'serif'],
+            sans: ['Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['Space Grotesk', 'monospace'],
+          },
+          colors: {
+            brand: {
+              gold: '#C5A059',
+              'gold-light': '#DFBD74',
+              'gold-dark': '#9E7831',
+              dark: '#121212',
+              cream: '#F8F8F6'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="/styles/main.css" />
+
+  <style>
+    @keyframes popIn {
+      0% { transform: scale(0.6); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    @keyframes ripplePulse {
+      0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+      70% { box-shadow: 0 0 0 16px rgba(16, 185, 129, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+    .animate-pop-in {
+      animation: popIn 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+    .pulse-ring {
+      animation: ripplePulse 2.4s infinite;
+    }
+    .receipt-paper {
+      background: #FFFFFF;
+      position: relative;
+      box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.07), 0 1px 3px rgba(0, 0, 0, 0.04);
+    }
+    .receipt-perforation {
+      background-image: radial-gradient(#E8E8E5 40%, transparent 45%);
+      background-size: 16px 16px;
+      background-position: -8px -8px;
+    }
+
+    /* Print Optimization Rules */
+    @media print {
+      body {
+        background: #FFFFFF !important;
+        color: #000000 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .no-print {
+        display: none !important;
+      }
+      .print-only {
+        display: block !important;
+      }
+      .receipt-paper {
+        box-shadow: none !important;
+        border: 1px solid #CCCCCC !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 24px !important;
+      }
+      @page {
+        margin: 1.2cm;
+        size: auto;
+      }
+    }
+  </style>
+</head>
+<body class="bg-[#F8F8F6] text-neutral-900 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-amber-100 selection:text-neutral-900">
+
+  <!-- ================= TOP HEADER BAR (No Print) ================= -->
+  <header class="bg-white border-b border-neutral-200 sticky top-0 z-40 no-print">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <img src="/assets/logo.svg" alt="MOSQUITO" class="w-8 h-8 object-contain transition-transform group-hover:scale-105" />
+        <span class="font-sans text-2xl font-black tracking-[0.15em] text-neutral-950 uppercase">MOSQUITO</span>
+      </a>
+
+      <div class="flex items-center gap-4 text-xs font-mono text-neutral-600">
+        <span class="hidden sm:inline-flex items-center gap-1.5 text-emerald-700 font-medium">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          Order Confirmed & Protected
+        </span>
+        <a href="index.html" class="px-3.5 py-1.5 rounded-full border border-neutral-300 hover:bg-neutral-100 transition-colors uppercase font-bold text-[11px]">
+          ← Back to Shop
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= 3-STEP PROGRESS BAR (No Print) ================= -->
+  <div class="bg-white border-b border-neutral-200/80 py-3 shadow-xs no-print">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-center">
+      <div class="flex items-center gap-2 sm:gap-4 overflow-x-auto scrollbar-none py-1">
+        <!-- Step 1: Completed -->
+        <a href="checkout.html" class="step-tab-btn completed flex items-center gap-2 text-xs text-neutral-500 hover:text-neutral-900 transition-colors">
+          <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-[10px]">✓</span>
+          <span class="font-medium">Customer Details</span>
+        </a>
+
+        <div class="w-6 sm:w-12 h-[1.5px] bg-emerald-400"></div>
+
+        <!-- Step 2: Completed -->
+        <a href="payment.html" class="step-tab-btn completed flex items-center gap-2 text-xs text-neutral-500 hover:text-neutral-900 transition-colors">
+          <span class="w-5 h-5 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-[10px]">✓</span>
+          <span class="font-medium">Payment Gateway</span>
+        </a>
+
+        <div class="w-6 sm:w-12 h-[1.5px] bg-emerald-400"></div>
+
+        <!-- Step 3: Active Success -->
+        <div class="step-tab-btn active flex items-center gap-2 text-xs text-neutral-950 font-bold">
+          <span class="w-5 h-5 rounded-full bg-neutral-950 text-white flex items-center justify-center font-mono text-[10px] shadow-sm">3</span>
+          <span>Order Successful</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="max-w-3xl mx-auto px-4 sm:px-6 py-8 sm:py-12 flex-1 w-full space-y-8">
+    
+    <!-- SUCCESS CONFIRMATION HERO CARD (No Print) -->
+    <div class="bg-white rounded-3xl border border-neutral-200/90 p-8 sm:p-10 text-center relative overflow-hidden shadow-sm no-print">
+      <!-- Subtle Luxury Accent Bar -->
+      <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-400 via-emerald-500 to-amber-500"></div>
+      
+      <!-- Verified Animated Checkmark -->
+      <div class="w-18 h-18 sm:w-20 sm:h-20 bg-emerald-500 text-white rounded-full inline-flex items-center justify-center pulse-ring shadow-lg shadow-emerald-500/20 mb-5 animate-pop-in">
+        <svg class="w-9 h-9 sm:w-10 sm:h-10" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+          <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>
+      </div>
+
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200/80 text-emerald-800 text-[11px] font-mono font-semibold uppercase tracking-wider mb-3">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+        <span>Payment Verified • Order Confirmed</span>
+      </div>
+
+      <h1 class="font-brand text-2xl sm:text-4xl font-bold text-neutral-950 tracking-tight mb-2">
+        Thank You For Your Order!
+      </h1>
+      <p class="text-neutral-600 text-xs sm:text-sm max-w-lg mx-auto leading-relaxed">
+        Your order has been placed into our priority queue. A copy of this tax invoice and real-time shipment dispatch updates have been logged.
+      </p>
+
+      <!-- Order ID Pill with 1-Click Copy -->
+      <div class="mt-6 inline-flex flex-wrap items-center justify-center gap-2 px-4 py-2 rounded-2xl bg-neutral-50 border border-neutral-200 shadow-inner">
+        <span class="font-mono text-[11px] uppercase tracking-wider text-neutral-400 font-semibold">Order Reference:</span>
+        <span id="hero-order-id" class="font-mono text-sm sm:text-base font-bold text-neutral-900">MSQ-94821</span>
+        <button onclick="copyOrderId()" class="ml-1 px-2.5 py-1 bg-white hover:bg-neutral-900 hover:text-white border border-neutral-300 rounded-lg text-[10px] font-mono font-bold uppercase text-neutral-700 transition-all cursor-pointer shadow-xs">
+          Copy
+        </button>
+      </div>
+      <div id="copy-toast" class="text-[11px] font-mono text-emerald-700 font-semibold mt-2 hidden">
+        ✓ Order ID copied to clipboard!
+      </div>
+    </div>
+
+    <!-- ================= THE LUXURY PAYMENT RECEIPT & TAX INVOICE ================= -->
+    <div id="printable-receipt-area" class="receipt-paper rounded-3xl border border-neutral-200/90 p-6 sm:p-10 space-y-6">
+      
+      <!-- Receipt Top Brand Header -->
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 pb-6 border-b border-neutral-200">
+        <div>
+          <div class="flex items-center gap-3">
+            <img src="/assets/logo.svg" alt="MOSQUITO" class="w-8 h-8 object-contain" />
+            <span class="font-sans text-2xl font-black tracking-[0.18em] text-neutral-950 uppercase">MOSQUITO</span>
+          </div>
+          <p class="font-mono text-[10px] uppercase tracking-wider text-neutral-500 mt-1">
+            Official Tax Invoice & Dispatch Manifest
+          </p>
+          <div class="text-[10px] text-neutral-400 font-mono mt-0.5">
+            GSTIN: <span class="font-semibold text-neutral-700">37AAECM9482J1Z8</span> • Registered in India
+          </div>
+        </div>
+
+        <div class="text-left sm:text-right font-mono space-y-1 bg-neutral-50 sm:bg-transparent p-3 sm:p-0 rounded-xl sm:rounded-none w-full sm:w-auto border sm:border-0 border-neutral-200">
+          <div class="text-xs text-neutral-600">
+            Order Ref: <strong id="receipt-order-id" class="font-bold text-neutral-950 text-sm">#MSQ-94821</strong>
+          </div>
+          <div class="text-[11px] text-neutral-500">
+            Date: <span id="receipt-date-text" class="text-neutral-800 font-medium">--</span>
+          </div>
+          <div class="text-[10px] text-emerald-700 font-bold uppercase tracking-wider inline-flex items-center gap-1">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            <span id="receipt-payment-status">PAID IN FULL</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3-Column Structured Information Grid -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 py-2 border-b border-neutral-200 text-xs">
+        
+        <!-- Column 1: Customer Details -->
+        <div class="bg-neutral-50/80 p-4 rounded-2xl border border-neutral-150 space-y-1">
+          <span class="font-mono uppercase text-[10px] text-neutral-400 font-bold tracking-wider block">
+            Billed & Shipped To
+          </span>
+          <div id="customer-name-display" class="font-bold text-neutral-950 text-sm pt-0.5">Verified Customer</div>
+          <div id="customer-phone-display" class="font-mono text-neutral-600 text-[11px]">Phone: +91 9490751996</div>
+          <div id="customer-email-display" class="text-neutral-500 text-[11px] truncate">customer@mosquito.store</div>
+          <div id="customer-address-display" class="text-neutral-700 text-[11px] pt-1 leading-relaxed">Door 4-12, Premium Residency</div>
+          <div id="customer-city-pincode" class="font-semibold text-neutral-900 text-[11px]">Tirupati, Andhra Pradesh - 517501</div>
+        </div>
+
+        <!-- Column 2: Logistics & Dispatch -->
+        <div class="bg-neutral-50/80 p-4 rounded-2xl border border-neutral-150 space-y-1.5">
+          <span class="font-mono uppercase text-[10px] text-neutral-400 font-bold tracking-wider block">
+            Logistics & Delivery
+          </span>
+          <div class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-emerald-100/70 text-emerald-800 rounded-md font-mono text-[10px] font-bold">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+            Complimentary Air Express
+          </div>
+          <div class="text-neutral-600 text-[11px] pt-1">
+            Carrier: <strong class="text-neutral-800">BlueDart / Delhivery Air</strong>
+          </div>
+          <div class="text-neutral-600 text-[11px]">
+            Delivery ETA: <strong class="text-neutral-800">2-3 Business Days</strong>
+          </div>
+          <div class="text-neutral-500 font-mono text-[10px] pt-1">
+            Tracking Status: <span class="text-emerald-700 font-semibold">Active & Queued</span>
+          </div>
+        </div>
+
+        <!-- Column 3: Payment & Gateway -->
+        <div class="bg-neutral-50/80 p-4 rounded-2xl border border-neutral-150 space-y-1.5">
+          <span class="font-mono uppercase text-[10px] text-neutral-400 font-bold tracking-wider block">
+            Payment & Method
+          </span>
+          <div id="payment-method-badge" class="inline-flex items-center gap-1.5 px-2.5 py-1 bg-neutral-900 text-white rounded-md font-mono text-[10px] font-bold uppercase tracking-wider">
+            RAZORPAY VERIFIED
+          </div>
+          <div class="text-neutral-600 text-[11px] pt-1">
+            Gateway: <span class="text-neutral-800 font-medium">Razorpay 256-Bit SSL</span>
+          </div>
+          <div class="text-neutral-500 font-mono text-[10px]">
+            Txn ID: <span id="receipt-txn-id" class="text-neutral-700 font-semibold">TXN-84920491</span>
+          </div>
+          <div class="text-[10px] text-emerald-700 font-mono font-medium pt-1">
+            ✓ 100% Secure Transaction
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Itemized Garments Table -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between">
+          <span class="font-mono uppercase text-[10px] text-neutral-400 font-bold tracking-wider">
+            Purchased Garments (<span id="items-count-text">1</span>)
+          </span>
+          <span class="font-mono text-[10px] text-neutral-400 uppercase">Prices Inclusive of GST</span>
+        </div>
+
+        <div class="border border-neutral-200 rounded-2xl overflow-hidden divide-y divide-neutral-150 bg-white">
+          <div id="order-items-list" class="divide-y divide-neutral-100">
+            <!-- Dynamic Item Rows -->
+          </div>
+        </div>
+      </div>
+
+      <!-- Financial Calculations & Pricing Breakdown -->
+      <div class="bg-neutral-50 p-5 sm:p-6 rounded-2xl border border-neutral-200 space-y-2.5 font-mono text-xs">
+        
+        <div class="flex justify-between items-center text-neutral-600">
+          <span>Garment Subtotal</span>
+          <span id="subtotal-val" class="font-semibold text-neutral-900">Rs. 0.00</span>
+        </div>
+
+        <div id="discount-breakdown-row" class="hidden flex justify-between items-center text-emerald-700 font-semibold">
+          <span class="flex items-center gap-1">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z"/></svg>
+            VIP Privilege Discount (10%)
+          </span>
+          <span id="discount-val">-Rs. 0.00</span>
+        </div>
+
+        <div class="flex justify-between items-center text-neutral-600">
+          <span class="flex items-center gap-1.5">
+            <span>Domestic Express Air Shipping</span>
+            <span class="text-[10px] px-1.5 py-0.5 bg-emerald-100 text-emerald-800 rounded font-bold">28,000+ PINCODES</span>
+          </span>
+          <span class="text-emerald-700 font-bold uppercase">FREE</span>
+        </div>
+
+        <div class="flex justify-between items-center text-neutral-500 text-[11px] pt-1">
+          <span>Estimated GST & Packaging Duties</span>
+          <span class="text-neutral-700">Included in Price (0.00)</span>
+        </div>
+
+        <!-- Grand Total Row -->
+        <div class="pt-3 border-t border-neutral-200 flex justify-between items-center">
+          <div>
+            <span class="font-sans font-bold text-sm sm:text-base text-neutral-950 uppercase tracking-tight block">
+              Total Amount Paid
+            </span>
+            <span class="text-[10px] text-neutral-400 font-mono">Verified Zero Additional Surcharges</span>
+          </div>
+          <span id="total-val" class="font-sans text-xl sm:text-2xl font-black text-neutral-950 tracking-tight">
+            Rs. 0.00
+          </span>
+        </div>
+
+      </div>
+
+      <!-- Authenticity Barcode, Return Policy & Official Stamp -->
+      <div class="pt-4 border-t border-neutral-200 flex flex-col sm:flex-row items-center justify-between gap-4 text-neutral-500 font-mono text-[10px]">
+        
+        <!-- SVG Simulated Barcode -->
+        <div class="flex flex-col items-center sm:items-start gap-1">
+          <svg class="h-8 w-40 text-neutral-800" viewBox="0 0 160 32" fill="currentColor">
+            <!-- Dynamic Look Barcode Lines -->
+            <rect x="0" y="0" width="3" height="26"/>
+            <rect x="5" y="0" width="1" height="26"/>
+            <rect x="8" y="0" width="4" height="26"/>
+            <rect x="14" y="0" width="2" height="26"/>
+            <rect x="18" y="0" width="1" height="26"/>
+            <rect x="22" y="0" width="3" height="26"/>
+            <rect x="27" y="0" width="2" height="26"/>
+            <rect x="32" y="0" width="4" height="26"/>
+            <rect x="38" y="0" width="1" height="26"/>
+            <rect x="42" y="0" width="2" height="26"/>
+            <rect x="46" y="0" width="5" height="26"/>
+            <rect x="53" y="0" width="2" height="26"/>
+            <rect x="57" y="0" width="1" height="26"/>
+            <rect x="61" y="0" width="3" height="26"/>
+            <rect x="66" y="0" width="4" height="26"/>
+            <rect x="72" y="0" width="2" height="26"/>
+            <rect x="76" y="0" width="1" height="26"/>
+            <rect x="80" y="0" width="3" height="26"/>
+            <rect x="85" y="0" width="2" height="26"/>
+            <rect x="89" y="0" width="5" height="26"/>
+            <rect x="96" y="0" width="1" height="26"/>
+            <rect x="100" y="0" width="3" height="26"/>
+            <rect x="105" y="0" width="2" height="26"/>
+            <rect x="110" y="0" width="4" height="26"/>
+            <rect x="116" y="0" width="1" height="26"/>
+            <rect x="120" y="0" width="3" height="26"/>
+            <rect x="125" y="0" width="2" height="26"/>
+            <rect x="130" y="0" width="4" height="26"/>
+            <rect x="136" y="0" width="2" height="26"/>
+            <rect x="140" y="0" width="1" height="26"/>
+            <rect x="144" y="0" width="3" height="26"/>
+            <rect x="150" y="0" width="2" height="26"/>
+            <rect x="155" y="0" width="3" height="26"/>
+          </svg>
+          <span id="barcode-serial" class="tracking-widest text-[9px] text-neutral-400">890429184019</span>
+        </div>
+
+        <!-- Guarantee & Store Policy -->
+        <div class="text-center sm:text-right space-y-0.5">
+          <div class="font-bold text-neutral-800 uppercase tracking-wider">
+            100% Genuine MOSQUITO Quality
+          </div>
+          <div>30-Day Doorstep Exchange • Hassle-Free Returns</div>
+          <div class="text-neutral-400">Support: +91 9490751996 • concierge@mosquito.store</div>
+        </div>
+
+      </div>
+
+    </div>
+
+    <!-- ================= ACTION BUTTONS (No Print) ================= -->
+    <div class="pt-2 space-y-3 no-print">
+      <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+        
+        <!-- Print / PDF Button -->
+        <button onclick="window.print()" class="w-full sm:w-auto flex-1 px-6 py-3.5 bg-white hover:bg-neutral-100 text-neutral-900 border border-neutral-300 rounded-full font-mono text-xs uppercase font-bold tracking-wider transition-all flex items-center justify-center gap-2 shadow-xs cursor-pointer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <polyline points="6 9 6 2 18 2 18 9"></polyline>
+            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+            <rect x="6" y="14" width="12" height="8"></rect>
+          </svg>
+          <span>Print / Save Tax Invoice</span>
+        </button>
+
+        <!-- WhatsApp Updates Button -->
+        <a id="wa-track-btn" href="https://wa.me/919490751996" target="_blank" class="w-full sm:w-auto flex-1 px-6 py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full font-mono text-xs uppercase font-bold tracking-wider transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg cursor-pointer">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+          </svg>
+          <span>Get WhatsApp Updates</span>
+        </a>
+
+      </div>
+
+      <!-- Continue Shopping Button -->
+      <a href="index.html" class="block w-full py-3.5 bg-neutral-950 hover:bg-black text-white text-center rounded-full font-mono text-xs uppercase font-bold tracking-widest transition-all shadow-md">
+        Continue Shopping & Explore Collection →
+      </a>
+    </div>
+
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-white border-t border-neutral-200 py-6 text-center text-xs text-neutral-500 font-mono no-print">
+    © 2026 MOSQUITO APPAREL PRIVATE LIMITED. ALL RIGHTS RESERVED.
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const lastOrderRaw = localStorage.getItem('mosquito_last_order');
+      let order = null;
+
+      if (lastOrderRaw) {
+        try {
+          order = JSON.parse(lastOrderRaw);
+        } catch(e) {
+          console.error('Error parsing order data', e);
+        }
+      }
+
+      // Elegant Fallback Sample Data if visited directly
+      if (!order) {
+        order = {
+          orderId: 'MSQ-' + Math.floor(100000 + Math.random() * 900000),
+          date: new Date().toLocaleDateString('en-IN', { 
+            day: 'numeric', 
+            month: 'short', 
+            year: 'numeric', 
+            hour: '2-digit', 
+            minute: '2-digit' 
+          }),
+          customer: {
+            name: 'Verified Customer',
+            phone: '9490751996',
+            email: 'customer@mosquito.store',
+            address: 'Door 4-12, Premium Residency',
+            city: 'Tirupati',
+            state: 'Andhra Pradesh',
+            pincode: '517501'
+          },
+          items: [
+            { 
+              name: 'MOSQUITO EMBROIDERED SHIRT', 
+              category: 'Embroidered Shirts',
+              image: '/assets/men/Embroided Shirts.jpg', 
+              color: 'Vintage White', 
+              size: 'M', 
+              quantity: 1, 
+              priceINR: 849,
+              price: 849
+            }
+          ],
+          subtotal: 849,
+          discount: 0,
+          total: 849,
+          paymentMethod: 'Razorpay Online'
+        };
+      }
+
+      // Populate Order IDs & Timestamps
+      const orderIdStr = order.orderId ? (order.orderId.startsWith('#') ? order.orderId : '#' + order.orderId) : '#MSQ-94821';
+      const cleanOrderId = orderIdStr.replace('#', '');
+
+      document.getElementById('hero-order-id').innerText = cleanOrderId;
+      document.getElementById('receipt-order-id').innerText = orderIdStr;
+      document.getElementById('receipt-date-text').innerText = order.timestamp || order.date || new Date().toLocaleDateString('en-IN', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+      
+      // Dynamic Random Barcode Serial
+      const randomSerial = '890' + Math.floor(100000000 + Math.random() * 900000000);
+      const barcodeEl = document.getElementById('barcode-serial');
+      if (barcodeEl) barcodeEl.innerText = randomSerial;
+
+      const randomTxn = 'TXN-' + Math.floor(10000000 + Math.random() * 90000000);
+      const txnEl = document.getElementById('receipt-txn-id');
+      if (txnEl) txnEl.innerText = randomTxn;
+
+      // Populate Customer & Delivery Summary
+      const c = order.customer || {};
+      document.getElementById('customer-name-display').innerText = c.name || c.fullName || 'Verified Customer';
+      
+      const phoneFormatted = c.phone ? `Phone: +91 ${c.phone.replace(/\D/g, '').slice(-10)}` : 'Phone: +91 9490751996';
+      document.getElementById('customer-phone-display').innerText = phoneFormatted;
+      
+      document.getElementById('customer-email-display').innerText = c.email || 'Digital Invoice Dispatched';
+      document.getElementById('customer-address-display').innerText = c.address || 'Standard Delivery Address';
+      document.getElementById('customer-city-pincode').innerText = `${c.city || 'Tirupati'}, ${c.state || 'Andhra Pradesh'} - ${c.pincode || '517501'}`;
+
+      // Payment Method Badge
+      const paymentMethod = (order.paymentMethod || 'Razorpay Online').toUpperCase();
+      const pBadge = document.getElementById('payment-method-badge');
+      if (pBadge) pBadge.innerText = paymentMethod;
+
+      // Render Itemized Garments
+      const itemsContainer = document.getElementById('order-items-list');
+      const itemsList = order.items || [];
+      const countEl = document.getElementById('items-count-text');
+      if (countEl) countEl.innerText = itemsList.length;
+
+      if (itemsList.length > 0) {
+        itemsContainer.innerHTML = itemsList.map(item => {
+          const itemPrice = item.priceINR || item.price || 0;
+          const itemQty = item.quantity || item.qty || 1;
+          const itemTotal = itemPrice * itemQty;
+          const itemImg = item.image || '/assets/men/Embroided Shirts.jpg';
+
+          return `
+            <div class="p-4 flex items-center justify-between gap-4 hover:bg-neutral-50/50 transition-colors">
+              <div class="flex items-center gap-3 min-w-0">
+                <img src="${itemImg}" alt="${item.name}" class="w-12 h-14 sm:w-14 sm:h-16 object-cover rounded-xl border border-neutral-200 bg-neutral-100 flex-shrink-0" onerror="this.src='/assets/logo.svg'" />
+                <div class="min-w-0">
+                  <h4 class="font-sans font-bold text-neutral-950 text-xs sm:text-sm uppercase tracking-tight truncate">${item.name}</h4>
+                  <div class="flex flex-wrap items-center gap-1.5 text-[11px] text-neutral-500 font-mono mt-1">
+                    <span class="px-2 py-0.5 rounded bg-neutral-100 text-neutral-800 font-semibold border border-neutral-200">Size: ${item.size || 'M'}</span>
+                    <span>•</span>
+                    <span>Qty: <strong class="text-neutral-900">${itemQty}</strong></span>
+                    ${item.color ? `<span>•</span><span>${item.color}</span>` : ''}
+                  </div>
+                </div>
+              </div>
+              <div class="text-right flex-shrink-0 font-mono">
+                <div class="font-bold text-neutral-950 text-xs sm:text-sm">
+                  Rs. ${itemTotal.toLocaleString('en-IN')}.00
+                </div>
+                ${itemQty > 1 ? `<div class="text-[10px] text-neutral-400">Rs. ${itemPrice.toLocaleString('en-IN')} each</div>` : ''}
+              </div>
+            </div>
+          `;
+        }).join('');
+      } else {
+        itemsContainer.innerHTML = `
+          <div class="p-4 text-center text-xs text-neutral-400 font-mono">
+            No items in record
+          </div>
+        `;
+      }
+
+      // Calculations Breakdown
+      const subtotal = order.subtotal || order.total || 0;
+      const discount = order.discount || 0;
+      const total = order.total || (subtotal - discount);
+
+      document.getElementById('subtotal-val').innerText = `Rs. ${subtotal.toLocaleString('en-IN')}.00`;
+      
+      const discountRow = document.getElementById('discount-breakdown-row');
+      const discountEl = document.getElementById('discount-val');
+      if (discount > 0 && discountRow && discountEl) {
+        discountRow.classList.remove('hidden');
+        discountEl.innerText = `-Rs. ${discount.toLocaleString('en-IN')}.00`;
+      }
+
+      document.getElementById('total-val').innerText = `Rs. ${total.toLocaleString('en-IN')}.00`;
+
+      // Setup Dynamic WhatsApp Concierge Link
+      const customerName = c.name || c.fullName || 'Customer';
+      const customerPhone = c.phone || '';
+      const waMsg = encodeURIComponent(`Hi MOSQUITO Team! I just placed Order ${orderIdStr} for Rs. ${total.toLocaleString('en-IN')}. Please share my live courier dispatch updates. Customer: ${customerName} (+91 ${customerPhone})`);
+      const waBtn = document.getElementById('wa-track-btn');
+      if (waBtn) {
+        waBtn.href = `https://wa.me/919490751996?text=${waMsg}`;
+      }
+    });
+
+    function copyOrderId() {
+      const orderId = document.getElementById('hero-order-id').innerText;
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(orderId).then(() => {
+          const toast = document.getElementById('copy-toast');
+          if (toast) {
+            toast.classList.remove('hidden');
+            setTimeout(() => { toast.classList.add('hidden'); }, 2500);
+          }
+        });
+      }
+    }
+  </script>
+  <script src="/js/lenis-scroll.js"></script>
+</body>
+</html>

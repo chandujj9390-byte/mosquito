@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 900" width="100%" height="100%">
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E5C378" />
+      <stop offset="35%" stop-color="#C5A059" />
+      <stop offset="70%" stop-color="#DFBD74" />
+      <stop offset="100%" stop-color="#9E7831" />
+    </linearGradient>
+    <linearGradient id="goldShimmer" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#B88A3B"/>
+      <stop offset="50%" stop-color="#FDF0CD"/>
+      <stop offset="100%" stop-color="#B88A3B"/>
+    </linearGradient>
+    <filter id="goldGlow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="1.5" result="blur" />
+      <feComposite in="SourceGraphic" in2="blur" operator="over" />
+    </filter>
+  </defs>
+
+  <g fill="url(#goldGradient)" stroke="url(#goldGradient)">
+    <!-- Stylized Mosquito Wings -->
+    <!-- Top Wing -->
+    <g stroke-width="5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M375 390 C430 330 520 230 605 210 C565 260 480 340 400 425 Z" fill="none" stroke="url(#goldGradient)" stroke-width="6"/>
+      <!-- Wing inner veins -->
+      <path d="M430 345 C490 280 545 250 575 235" stroke-width="3"/>
+      <path d="M470 340 C520 310 560 285 580 270" stroke-width="2.5"/>
+      <path d="M435 390 C500 375 555 350 580 330" stroke-width="3"/>
+      
+      <!-- Lower Wing -->
+      <path d="M395 435 C470 410 565 370 610 345 C575 390 495 425 415 450 Z" fill="none" stroke="url(#goldGradient)" stroke-width="5"/>
+      <path d="M465 418 C525 395 565 375 585 365" stroke-width="2.5"/>
+    </g>
+
+    <!-- Mosquito Body & Head & Thorax -->
+    <g fill="url(#goldGradient)" stroke="none">
+      <!-- Head -->
+      <path d="M320 440 C310 430 300 440 290 455 C285 462 290 472 300 475 C315 480 325 465 320 440 Z" />
+      <!-- Proboscis (sharp needle) -->
+      <path d="M290 460 L218 545 L225 548 L296 467 Z" />
+      <!-- Antennae -->
+      <path d="M312 435 C305 385 270 340 258 315 C260 325 285 375 305 428 Z" />
+      <path d="M320 435 C320 375 305 325 300 300 C305 320 325 370 325 430 Z" />
+
+      <!-- Thorax (Hump) -->
+      <path d="M320 440 C340 395 385 390 395 430 C380 435 345 440 320 440 Z" />
+      
+      <!-- Abdomen Segments -->
+      <path d="M405 425 C435 435 485 470 515 500 C495 505 450 480 385 455 Z" />
+      <path d="M425 450 C455 470 490 500 510 520 C490 522 455 500 405 475 Z" />
+      <path d="M445 478 C470 498 500 528 518 545 C500 546 470 528 425 500 Z" />
+      <path d="M465 510 C485 530 510 555 525 570 C510 570 485 550 445 525 Z" />
+      <path d="M485 540 C500 555 525 580 535 590 C522 590 500 572 470 550 Z" />
+      <!-- Abdomen Tail Tip -->
+      <path d="M510 575 C530 595 550 618 555 625 C545 622 525 605 498 585 Z" />
+    </g>
+
+    <!-- Long Elegant Legs -->
+    <g stroke="url(#goldGradient)" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <!-- Front Leg -->
+      <path d="M335 448 C310 490 280 540 240 585" />
+      <path d="M350 445 C340 485 330 520 325 550" />
+      <!-- Middle Leg -->
+      <path d="M370 445 C380 490 390 535 410 570 C430 605 480 655 515 675" />
+      <!-- Back Leg (Arched High) -->
+      <path d="M380 435 C390 370 400 310 405 285" stroke-width="4"/>
+      <path d="M390 435 C420 500 480 580 580 660" />
+    </g>
+  </g>
+
+  <!-- Typography: MOSQUITO -->
+  <g id="brand-typography">
+    <text x="400" y="745" 
+          font-family="'Cinzel', 'Playfair Display', 'Cormorant Garamond', serif" 
+          font-size="64" 
+          font-weight="400" 
+          letter-spacing="0.28em" 
+          text-anchor="middle" 
+          fill="url(#goldGradient)">
+      MOSQUITO
+    </text>
+
+    <!-- Ornamental Geometric Line & Star Diamond -->
+    <g stroke="url(#goldGradient)" stroke-width="2" fill="url(#goldGradient)">
+      <line x1="135" y1="785" x2="370" y2="785" stroke-linecap="round"/>
+      <!-- Diamond Star Centerpiece -->
+      <path d="M400 771 L405 785 L419 785 L408 793 L412 807 L400 798 L388 807 L392 793 L381 785 L395 785 Z" stroke-width="1"/>
+      <line x1="430" y1="785" x2="665" y2="785" stroke-linecap="round"/>
+    </g>
+  </g>
+</svg>

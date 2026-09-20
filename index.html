@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MOSQUITO</title>
+  <meta name="description" content="Minimalist luxury apparel designed in Stockholm. Explore curated Men & Women editorial collections, architectural tailoring, and pure natural textiles." />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              gold: '#C5A059',
+              goldLight: '#E5C378',
+              goldDark: '#9E7831',
+              charcoal: '#121212',
+              surface: '#F9F9F8',
+              surfaceElevated: '#F4F4F2',
+              stone: '#E8E8E5'
+            }
+          },
+          fontFamily: {
+            editorial: ['"Cormorant Garamond"', 'Georgia', 'serif'],
+            brand: ['"Cinzel"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"Space Grotesk"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="/styles/main.css" />
+</head>
+
+<body class="bg-[#F9F9F8] text-[#121212] antialiased selection:bg-[#C5A059] selection:text-white">
+
+
+  <!-- ================= GLOBAL STICKY HEADER ================= -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-neutral-200 transition-all duration-300">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Left: Brand Logo & Wordmark -->
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="w-8 h-8 sm:w-9 sm:h-9 transition-transform duration-300 group-hover:scale-105">
+            <img src="/assets/logo.svg" alt="MOSQUITO" class="w-full h-full object-contain filter drop-shadow-sm" />
+          </div>
+          <span class="font-sans text-2xl sm:text-3xl font-black tracking-[0.15em] text-black uppercase hover:opacity-80 transition-opacity">
+            MOSQUITO
+          </span>
+        </a>
+
+        <!-- Right: Only Wishlist & Shopping Bag -->
+        <div class="flex items-center gap-3 sm:gap-4">
+          <!-- Wishlist Heart Button with Counter -->
+          <button onclick="window.infoManager ? window.infoManager.open('wishlist') : null" class="relative p-2 text-neutral-800 hover:text-black hover:scale-105 transition-all" title="Wishlist">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+            </svg>
+            <span id="wishlist-count-badge" class="hidden absolute -top-0.5 -right-0.5 w-4 h-4 rounded-full bg-red-500 text-white text-[9px] font-mono font-bold flex items-center justify-center shadow-sm">
+              0
+            </span>
+          </button>
+
+          <!-- Solid Black Bag Pill Button -->
+          <button data-action="open-bag" class="header-cart-capsule" aria-label="Open Shopping Bag">
+            <span>BAG</span>
+            <span class="cart-badge-count font-mono text-xs font-bold text-white">0</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= HERO POSTER SLIDER (SMOOTH TRANSITIONS) ================= -->
+  <section class="poster-slider-wrapper" id="poster-slider-wrapper" aria-label="Brand Posters Runway Showcase">
+    
+    <!-- Previous & Next Glassmorphic Controls -->
+    <button id="slider-prev-btn" class="slider-arrow-btn prev" aria-label="Previous Poster Slide">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M15 19l-7-7 7-7"/>
+      </svg>
+    </button>
+    <button id="slider-next-btn" class="slider-arrow-btn next" aria-label="Next Poster Slide">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M9 5l7 7-7 7"/>
+      </svg>
+    </button>
+
+    <!-- Top Right Counter Badge -->
+    <div id="slider-counter" class="slider-counter-badge">
+      01 / 05
+    </div>
+
+    <!-- Sliding Track for 5 Full-Frame Brand Posters -->
+    <div class="poster-slider-track" id="poster-slider-track">
+      
+      <!-- Slide 1 (1.png - First Poster) -->
+      <div class="poster-slide active" onclick="document.getElementById('middle-collection-toggle')?.scrollIntoView({behavior: 'smooth'})">
+        <img src="/assets/posters/1.png" alt="MOSQUITO Brand Poster 1" class="poster-slide-img" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1920&q=85';" />
+        <div class="poster-corner-gradient"></div>
+        <div class="poster-caption-box space-y-2">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono tracking-widest uppercase bg-black/70 backdrop-blur-md text-white border border-white/20 shadow-md">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#E5C378]"></span>
+            EDITION NO. 01 • FLAGSHIP RUNWAY DROP
+          </span>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-sans font-black tracking-tight uppercase text-white drop-shadow-lg leading-tight">
+            THE CHILL & OVERSIZED SERIES
+          </h2>
+          <p class="text-xs sm:text-sm font-sans font-medium text-neutral-200 drop-shadow-md">
+            280 GSM Pure Natural Textiles & Signature Street Silhouettes
+          </p>
+        </div>
+      </div>
+
+      <!-- Slide 2 (4.png) -->
+      <div class="poster-slide" onclick="document.getElementById('middle-collection-toggle')?.scrollIntoView({behavior: 'smooth'})">
+        <img src="/assets/posters/4.png" alt="MOSQUITO Brand Poster 4" class="poster-slide-img" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1920&q=85';" />
+        <div class="poster-corner-gradient"></div>
+        <div class="poster-caption-box space-y-2">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono tracking-widest uppercase bg-black/70 backdrop-blur-md text-white border border-white/20 shadow-md">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#E5C378]"></span>
+            EDITION NO. 02 • AUTUMN / WINTER 2026
+          </span>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-sans font-black tracking-tight uppercase text-white drop-shadow-lg leading-tight">
+            RAW STREET EDITORIAL
+          </h2>
+          <p class="text-xs sm:text-sm font-sans font-medium text-neutral-200 drop-shadow-md">
+            Heavyweight Cotton & Architectural Silhouettes
+          </p>
+        </div>
+      </div>
+
+      <!-- Slide 3 (5.png) -->
+      <div class="poster-slide" onclick="document.getElementById('middle-collection-toggle')?.scrollIntoView({behavior: 'smooth'})">
+        <img src="/assets/posters/5.png" alt="MOSQUITO Brand Poster 5" class="poster-slide-img" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1920&q=85';" />
+        <div class="poster-corner-gradient"></div>
+        <div class="poster-caption-box space-y-2">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono tracking-widest uppercase bg-black/70 backdrop-blur-md text-white border border-white/20 shadow-md">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#E5C378]"></span>
+            EDITION NO. 03 • MONOLITHIC DRAPE
+          </span>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-sans font-black tracking-tight uppercase text-white drop-shadow-lg leading-tight">
+            MONOLITHIC ESSENTIALS
+          </h2>
+          <p class="text-xs sm:text-sm font-sans font-medium text-neutral-200 drop-shadow-md">
+            Minimalist Drape Crafted for the Modern Metropolitan
+          </p>
+        </div>
+      </div>
+
+      <!-- Slide 4 (2.png) -->
+      <div class="poster-slide" onclick="document.getElementById('middle-collection-toggle')?.scrollIntoView({behavior: 'smooth'})">
+        <img src="/assets/posters/2.png" alt="MOSQUITO Brand Poster 2" class="poster-slide-img" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1529139574466-a303027c1d8b?auto=format&fit=crop&w=1920&q=85';" />
+        <div class="poster-corner-gradient"></div>
+        <div class="poster-caption-box space-y-2">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono tracking-widest uppercase bg-black/70 backdrop-blur-md text-white border border-white/20 shadow-md">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#E5C378]"></span>
+            EDITION NO. 04 • INDIA FLAGSHIP CAPSULE
+          </span>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-sans font-black tracking-tight uppercase text-white drop-shadow-lg leading-tight">
+            CHILL SERIES 1.0
+          </h2>
+          <p class="text-xs sm:text-sm font-sans font-medium text-neutral-200 drop-shadow-md">
+            Bio-Washed Combed Cotton • Everyday Effortless Comfort
+          </p>
+        </div>
+      </div>
+
+      <!-- Slide 5 (3.png) -->
+      <div class="poster-slide" onclick="document.getElementById('middle-collection-toggle')?.scrollIntoView({behavior: 'smooth'})">
+        <img src="/assets/posters/3.png" alt="MOSQUITO Brand Poster 3" class="poster-slide-img" loading="lazy" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1920&q=85';" />
+        <div class="poster-corner-gradient"></div>
+        <div class="poster-caption-box space-y-2">
+          <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-mono tracking-widest uppercase bg-black/70 backdrop-blur-md text-white border border-white/20 shadow-md">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#E5C378]"></span>
+            EDITION NO. 05 • RESORT & RUNWAY
+          </span>
+          <h2 class="text-2xl sm:text-3xl md:text-4xl font-sans font-black tracking-tight uppercase text-white drop-shadow-lg leading-tight">
+            TAILORED POLOS & KNITS
+          </h2>
+          <p class="text-xs sm:text-sm font-sans font-medium text-neutral-200 drop-shadow-md">
+            Fine-Gauge Compact Cotton with Contrast Collar Trim
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ================= MIDDLE OF THE WEBSITE: MEN / WOMEN TOGGLE ================= -->
+  <section id="middle-collection-toggle" class="middle-collection-container">
+    <div class="text-center mb-3">
+      <span class="text-[11px] font-mono tracking-[0.25em] text-neutral-400 uppercase font-semibold">Select Collection</span>
+      <h2 class="text-xl sm:text-2xl font-editorial font-normal text-neutral-900 mt-0.5">Explore by Edition</h2>
+    </div>
+    <div class="middle-collection-pills shadow-sm">
+      <button data-collection-target="men" class="active" id="mid-toggle-men">
+        MEN
+      </button>
+      <button data-collection-target="women" id="mid-toggle-women">
+        WOMEN
+      </button>
+    </div>
+  </section>
+
+  <!-- ================= CATEGORY TOGGLES BAR (MATCHING REFERENCE) ================= -->
+  <section id="catalog-section" class="sticky top-20 z-30 bg-white/95 backdrop-blur-md border-b border-neutral-200 py-3.5 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Category Pills (Men / Women Dynamic Toggles from Images 1 & 2) -->
+      <div class="overflow-x-auto pb-1 scrollbar-none" id="category-filter-pills">
+        <div class="flex items-center gap-2.5 flex-wrap justify-center sm:justify-start">
+          <button data-category="Embroidered Shirts" class="category-pill-btn">Embroidered Shirts</button>
+          <button data-category="Shirts" class="category-pill-btn">Shirts</button>
+          <button data-category="T-Shirts" class="category-pill-btn">T-Shirts</button>
+          <button data-category="Hoodies" class="category-pill-btn">Hoodies</button>
+          <button data-category="Formal Pants" class="category-pill-btn">Formal Pants</button>
+          <button data-category="Jeans" class="category-pill-btn">Jeans</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= PRODUCT CATALOG GRID ================= -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div class="flex justify-between items-baseline mb-8">
+      <div>
+        <span class="text-xs font-mono uppercase tracking-widest text-[#9E7831] font-semibold">Editorial Catalog • India</span>
+        <h2 class="text-2xl sm:text-3xl font-editorial font-normal text-neutral-900 mt-1">Ready-to-Wear Pieces</h2>
+      </div>
+      <span id="products-count-badge" class="text-xs font-mono text-neutral-500 bg-neutral-100 px-3 py-1 rounded-full">
+        8 Garments
+      </span>
+    </div>
+
+    <!-- Reactive Dynamic Grid Container -->
+    <div id="products-grid-container" class="transition-all duration-300">
+      <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+
+        <div class="product-card group flex flex-col justify-between bg-white text-left">
+          
+          <!-- Image Container with Square Sharp Look & Hover Quick View -->
+          <div class="relative w-full aspect-[4/5] overflow-hidden bg-neutral-100 cursor-pointer" onclick="appManager.openQuickView('m-01')">
+            <img src="/assets/men/Embroided Shirts.jpg" alt="MOSQUITO EMBROIDERED SHIRT" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 primary-img" loading="lazy"/>
+            <img src="/assets/men/Embroided Shirts.avif" alt="MOSQUITO EMBROIDERED SHIRT back" class="secondary-img w-full h-full object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" loading="lazy"/>
+
+            <!-- Top Left Black Solid Rectangle Badge (MSQ PICK / VD PICK style) -->
+            
+              <div class="absolute top-3 left-3 z-10">
+                <span class="bg-black text-white px-2.5 py-1 text-[11px] font-sans font-black tracking-wider uppercase inline-block shadow-sm">
+                  MSQ PICK
+                </span>
+              </div>
+            
+
+            <!-- Top Right Floating Action Circles (Wishlist Heart & Share) -->
+            <div class="absolute top-3 right-3 flex flex-col gap-2 z-10" onclick="event.stopPropagation()">
+              <button onclick="appManager.toggleWishlist('m-01', event)" class="action-circle-btn" title="Save to Wishlist" aria-label="Save to Wishlist">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+              </button>
+              <button onclick="appManager.shareProduct('m-01', event)" class="action-circle-btn" title="Share Garment" aria-label="Share Garment">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Bottom Floating 'QUICK ADD +' Overlay (Matching Reference Image 2) -->
+            <div class="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
+              <button onclick="appManager.openQuickView('m-01')" class="w-full py-2.5 bg-black/90 hover:bg-black text-white text-[11px] uppercase tracking-wider font-sans font-bold flex items-center justify-center gap-1.5 backdrop-blur-sm shadow-md transition-all">
+                <span>QUICK ADD +</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Details (Typography Matching Reference Image 2) -->
+          <div class="pt-3.5 pb-2 flex flex-col justify-between flex-1">
+            <div>
+              <!-- Bold Uppercase Title -->
+              <h3 class="text-[13px] sm:text-[14px] font-sans font-black tracking-tight text-neutral-900 uppercase line-clamp-1 hover:text-neutral-600 transition-colors cursor-pointer" onclick="appManager.openQuickView('m-01')">
+                MOSQUITO EMBROIDERED SHIRT
+              </h3>
+              
+              <!-- Category / Sub-Category in Subtle Gray -->
+              <div class="text-[11px] font-sans text-neutral-500 uppercase tracking-wide mt-0.5">
+                Embroidered Shirts
+              </div>
+            </div>
+
+            <!-- Price with Rupee Symbol -->
+            <div class="mt-2 text-[14px] sm:text-[15px] font-sans font-bold text-neutral-900 tracking-tight">
+              ₹849
+            </div>
+          </div>
+
+        </div>
+  
+
+        <div class="product-card group flex flex-col justify-between bg-white text-left">
+          
+          <!-- Image Container with Square Sharp Look & Hover Quick View -->
+          <div class="relative w-full aspect-[4/5] overflow-hidden bg-neutral-100 cursor-pointer" onclick="appManager.openQuickView('m-02')">
+            <img src="/assets/men/Embroided Shirts (2).avif" alt="EMBROIDERED RESORT SHIRT" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 primary-img" loading="lazy"/>
+            <img src="/assets/men/Embroided Shirts.jpg" alt="EMBROIDERED RESORT SHIRT back" class="secondary-img w-full h-full object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" loading="lazy"/>
+
+            <!-- Top Left Black Solid Rectangle Badge (MSQ PICK / VD PICK style) -->
+            
+              <div class="absolute top-3 left-3 z-10">
+                <span class="bg-black text-white px-2.5 py-1 text-[11px] font-sans font-black tracking-wider uppercase inline-block shadow-sm">
+                  BESTSELLER
+                </span>
+              </div>
+            
+
+            <!-- Top Right Floating Action Circles (Wishlist Heart & Share) -->
+            <div class="absolute top-3 right-3 flex flex-col gap-2 z-10" onclick="event.stopPropagation()">
+              <button onclick="appManager.toggleWishlist('m-02', event)" class="action-circle-btn" title="Save to Wishlist" aria-label="Save to Wishlist">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+              </button>
+              <button onclick="appManager.shareProduct('m-02', event)" class="action-circle-btn" title="Share Garment" aria-label="Share Garment">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Bottom Floating 'QUICK ADD +' Overlay (Matching Reference Image 2) -->
+            <div class="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
+              <button onclick="appManager.openQuickView('m-02')" class="w-full py-2.5 bg-black/90 hover:bg-black text-white text-[11px] uppercase tracking-wider font-sans font-bold flex items-center justify-center gap-1.5 backdrop-blur-sm shadow-md transition-all">
+                <span>QUICK ADD +</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Details (Typography Matching Reference Image 2) -->
+          <div class="pt-3.5 pb-2 flex flex-col justify-between flex-1">
+            <div>
+              <!-- Bold Uppercase Title -->
+              <h3 class="text-[13px] sm:text-[14px] font-sans font-black tracking-tight text-neutral-900 uppercase line-clamp-1 hover:text-neutral-600 transition-colors cursor-pointer" onclick="appManager.openQuickView('m-02')">
+                EMBROIDERED RESORT SHIRT
+              </h3>
+              
+              <!-- Category / Sub-Category in Subtle Gray -->
+              <div class="text-[11px] font-sans text-neutral-500 uppercase tracking-wide mt-0.5">
+                Embroidered Shirts
+              </div>
+            </div>
+
+            <!-- Price with Rupee Symbol -->
+            <div class="mt-2 text-[14px] sm:text-[15px] font-sans font-bold text-neutral-900 tracking-tight">
+              ₹849
+            </div>
+          </div>
+
+        </div>
+  
+
+        <div class="product-card group flex flex-col justify-between bg-white text-left">
+          
+          <!-- Image Container with Square Sharp Look & Hover Quick View -->
+          <div class="relative w-full aspect-[4/5] overflow-hidden bg-neutral-100 cursor-pointer" onclick="appManager.openQuickView('m-03')">
+            <img src="/assets/men/shirts.png" alt="CLASSIC COTTON SHIRT" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 primary-img" loading="lazy"/>
+            <img src="/assets/men/shirts (2).png" alt="CLASSIC COTTON SHIRT back" class="secondary-img w-full h-full object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" loading="lazy"/>
+
+            <!-- Top Left Black Solid Rectangle Badge (MSQ PICK / VD PICK style) -->
+            
+              <div class="absolute top-3 left-3 z-10">
+                <span class="bg-black text-white px-2.5 py-1 text-[11px] font-sans font-black tracking-wider uppercase inline-block shadow-sm">
+                  NEW DROP
+                </span>
+              </div>
+            
+
+            <!-- Top Right Floating Action Circles (Wishlist Heart & Share) -->
+            <div class="absolute top-3 right-3 flex flex-col gap-2 z-10" onclick="event.stopPropagation()">
+              <button onclick="appManager.toggleWishlist('m-03', event)" class="action-circle-btn" title="Save to Wishlist" aria-label="Save to Wishlist">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+              </button>
+              <button onclick="appManager.shareProduct('m-03', event)" class="action-circle-btn" title="Share Garment" aria-label="Share Garment">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Bottom Floating 'QUICK ADD +' Overlay (Matching Reference Image 2) -->
+            <div class="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
+              <button onclick="appManager.openQuickView('m-03')" class="w-full py-2.5 bg-black/90 hover:bg-black text-white text-[11px] uppercase tracking-wider font-sans font-bold flex items-center justify-center gap-1.5 backdrop-blur-sm shadow-md transition-all">
+                <span>QUICK ADD +</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Details (Typography Matching Reference Image 2) -->
+          <div class="pt-3.5 pb-2 flex flex-col justify-between flex-1">
+            <div>
+              <!-- Bold Uppercase Title -->
+              <h3 class="text-[13px] sm:text-[14px] font-sans font-black tracking-tight text-neutral-900 uppercase line-clamp-1 hover:text-neutral-600 transition-colors cursor-pointer" onclick="appManager.openQuickView('m-03')">
+                CLASSIC COTTON SHIRT
+              </h3>
+              
+              <!-- Category / Sub-Category in Subtle Gray -->
+              <div class="text-[11px] font-sans text-neutral-500 uppercase tracking-wide mt-0.5">
+                Shirts
+              </div>
+            </div>
+
+            <!-- Price with Rupee Symbol -->
+            <div class="mt-2 text-[14px] sm:text-[15px] font-sans font-bold text-neutral-900 tracking-tight">
+              ₹799
+            </div>
+          </div>
+
+        </div>
+  
+
+        <div class="product-card group flex flex-col justify-between bg-white text-left">
+          
+          <!-- Image Container with Square Sharp Look & Hover Quick View -->
+          <div class="relative w-full aspect-[4/5] overflow-hidden bg-neutral-100 cursor-pointer" onclick="appManager.openQuickView('m-04')">
+            <img src="/assets/men/shirts (2).png" alt="TAILORED CASUAL SHIRT" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 primary-img" loading="lazy"/>
+            <img src="/assets/men/shirts.jpg" alt="TAILORED CASUAL SHIRT back" class="secondary-img w-full h-full object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" loading="lazy"/>
+
+            <!-- Top Left Black Solid Rectangle Badge (MSQ PICK / VD PICK style) -->
+            
+              <div class="absolute top-3 left-3 z-10">
+                <span class="bg-black text-white px-2.5 py-1 text-[11px] font-sans font-black tracking-wider uppercase inline-block shadow-sm">
+                  CORE
+                </span>
+              </div>
+            
+
+            <!-- Top Right Floating Action Circles (Wishlist Heart & Share) -->
+            <div class="absolute top-3 right-3 flex flex-col gap-2 z-10" onclick="event.stopPropagation()">
+              <button onclick="appManager.toggleWishlist('m-04', event)" class="action-circle-btn" title="Save to Wishlist" aria-label="Save to Wishlist">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+              </button>
+              <button onclick="appManager.shareProduct('m-04', event)" class="action-circle-btn" title="Share Garment" aria-label="Share Garment">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Bottom Floating 'QUICK ADD +' Overlay (Matching Reference Image 2) -->
+            <div class="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
+              <button onclick="appManager.openQuickView('m-04')" class="w-full py-2.5 bg-black/90 hover:bg-black text-white text-[11px] uppercase tracking-wider font-sans font-bold flex items-center justify-center gap-1.5 backdrop-blur-sm shadow-md transition-all">
+                <span>QUICK ADD +</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Details (Typography Matching Reference Image 2) -->
+          <div class="pt-3.5 pb-2 flex flex-col justify-between flex-1">
+            <div>
+              <!-- Bold Uppercase Title -->
+              <h3 class="text-[13px] sm:text-[14px] font-sans font-black tracking-tight text-neutral-900 uppercase line-clamp-1 hover:text-neutral-600 transition-colors cursor-pointer" onclick="appManager.openQuickView('m-04')">
+                TAILORED CASUAL SHIRT
+              </h3>
+              
+              <!-- Category / Sub-Category in Subtle Gray -->
+              <div class="text-[11px] font-sans text-neutral-500 uppercase tracking-wide mt-0.5">
+                Shirts
+              </div>
+            </div>
+
+            <!-- Price with Rupee Symbol -->
+            <div class="mt-2 text-[14px] sm:text-[15px] font-sans font-bold text-neutral-900 tracking-tight">
+              ₹799
+            </div>
+          </div>
+
+        </div>
+  
+
+        <div class="product-card group flex flex-col justify-between bg-white text-left">
+          
+          <!-- Image Container with Square Sharp Look & Hover Quick View -->
+          <div class="relative w-full aspect-[4/5] overflow-hidden bg-neutral-100 cursor-pointer" onclick="appManager.openQuickView('m-05')">
+            <img src="/assets/men/shirts.jpg" alt="OVERSIZED POPLIN SHIRT" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 primary-img" loading="lazy"/>
+            <img src="/assets/men/shirts.png" alt="OVERSIZED POPLIN SHIRT back" class="secondary-img w-full h-full object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" loading="lazy"/>
+
+            <!-- Top Left Black Solid Rectangle Badge (MSQ PICK / VD PICK style) -->
+            
+              <div class="absolute top-3 left-3 z-10">
+                <span class="bg-black text-white px-2.5 py-1 text-[11px] font-sans font-black tracking-wider uppercase inline-block shadow-sm">
+                  POPULAR
+                </span>
+              </div>
+            
+
+            <!-- Top Right Floating Action Circles (Wishlist Heart & Share) -->
+            <div class="absolute top-3 right-3 flex flex-col gap-2 z-10" onclick="event.stopPropagation()">
+              <button onclick="appManager.toggleWishlist('m-05', event)" class="action-circle-btn" title="Save to Wishlist" aria-label="Save to Wishlist">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+              </button>
+              <button onclick="appManager.shareProduct('m-05', event)" class="action-circle-btn" title="Share Garment" aria-label="Share Garment">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Bottom Floating 'QUICK ADD +' Overlay (Matching Reference Image 2) -->
+            <div class="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
+              <button onclick="appManager.openQuickView('m-05')" class="w-full py-2.5 bg-black/90 hover:bg-black text-white text-[11px] uppercase tracking-wider font-sans font-bold flex items-center justify-center gap-1.5 backdrop-blur-sm shadow-md transition-all">
+                <span>QUICK ADD +</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Details (Typography Matching Reference Image 2) -->
+          <div class="pt-3.5 pb-2 flex flex-col justify-between flex-1">
+            <div>
+              <!-- Bold Uppercase Title -->
+              <h3 class="text-[13px] sm:text-[14px] font-sans font-black tracking-tight text-neutral-900 uppercase line-clamp-1 hover:text-neutral-600 transition-colors cursor-pointer" onclick="appManager.openQuickView('m-05')">
+                OVERSIZED POPLIN SHIRT
+              </h3>
+              
+              <!-- Category / Sub-Category in Subtle Gray -->
+              <div class="text-[11px] font-sans text-neutral-500 uppercase tracking-wide mt-0.5">
+                Shirts
+              </div>
+            </div>
+
+            <!-- Price with Rupee Symbol -->
+            <div class="mt-2 text-[14px] sm:text-[15px] font-sans font-bold text-neutral-900 tracking-tight">
+              ₹799
+            </div>
+          </div>
+
+        </div>
+  
+
+        <div class="product-card group flex flex-col justify-between bg-white text-left">
+          
+          <!-- Image Container with Square Sharp Look & Hover Quick View -->
+          <div class="relative w-full aspect-[4/5] overflow-hidden bg-neutral-100 cursor-pointer" onclick="appManager.openQuickView('m-06')">
+            <img src="/assets/men/T-shirts.jpg" alt="CHILL OVERSIZED T-SHIRT" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 primary-img" loading="lazy"/>
+            <img src="/assets/men/T-shirts.avif" alt="CHILL OVERSIZED T-SHIRT back" class="secondary-img w-full h-full object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" loading="lazy"/>
+
+            <!-- Top Left Black Solid Rectangle Badge (MSQ PICK / VD PICK style) -->
+            
+              <div class="absolute top-3 left-3 z-10">
+                <span class="bg-black text-white px-2.5 py-1 text-[11px] font-sans font-black tracking-wider uppercase inline-block shadow-sm">
+                  MSQ PICK
+                </span>
+              </div>
+            
+
+            <!-- Top Right Floating Action Circles (Wishlist Heart & Share) -->
+            <div class="absolute top-3 right-3 flex flex-col gap-2 z-10" onclick="event.stopPropagation()">
+              <button onclick="appManager.toggleWishlist('m-06', event)" class="action-circle-btn" title="Save to Wishlist" aria-label="Save to Wishlist">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+              </button>
+              <button onclick="appManager.shareProduct('m-06', event)" class="action-circle-btn" title="Share Garment" aria-label="Share Garment">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Bottom Floating 'QUICK ADD +' Overlay (Matching Reference Image 2) -->
+            <div class="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
+              <button onclick="appManager.openQuickView('m-06')" class="w-full py-2.5 bg-black/90 hover:bg-black text-white text-[11px] uppercase tracking-wider font-sans font-bold flex items-center justify-center gap-1.5 backdrop-blur-sm shadow-md transition-all">
+                <span>QUICK ADD +</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Details (Typography Matching Reference Image 2) -->
+          <div class="pt-3.5 pb-2 flex flex-col justify-between flex-1">
+            <div>
+              <!-- Bold Uppercase Title -->
+              <h3 class="text-[13px] sm:text-[14px] font-sans font-black tracking-tight text-neutral-900 uppercase line-clamp-1 hover:text-neutral-600 transition-colors cursor-pointer" onclick="appManager.openQuickView('m-06')">
+                CHILL OVERSIZED T-SHIRT
+              </h3>
+              
+              <!-- Category / Sub-Category in Subtle Gray -->
+              <div class="text-[11px] font-sans text-neutral-500 uppercase tracking-wide mt-0.5">
+                T-Shirts
+              </div>
+            </div>
+
+            <!-- Price with Rupee Symbol -->
+            <div class="mt-2 text-[14px] sm:text-[15px] font-sans font-bold text-neutral-900 tracking-tight">
+              ₹999
+            </div>
+          </div>
+
+        </div>
+  
+
+        <div class="product-card group flex flex-col justify-between bg-white text-left">
+          
+          <!-- Image Container with Square Sharp Look & Hover Quick View -->
+          <div class="relative w-full aspect-[4/5] overflow-hidden bg-neutral-100 cursor-pointer" onclick="appManager.openQuickView('m-07')">
+            <img src="/assets/men/T-shirts.avif" alt="HEAVYWEIGHT CREW T-SHIRT" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 primary-img" loading="lazy"/>
+            <img src="/assets/men/T-shirts.jpg" alt="HEAVYWEIGHT CREW T-SHIRT back" class="secondary-img w-full h-full object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" loading="lazy"/>
+
+            <!-- Top Left Black Solid Rectangle Badge (MSQ PICK / VD PICK style) -->
+            
+              <div class="absolute top-3 left-3 z-10">
+                <span class="bg-black text-white px-2.5 py-1 text-[11px] font-sans font-black tracking-wider uppercase inline-block shadow-sm">
+                  ESSENTIAL
+                </span>
+              </div>
+            
+
+            <!-- Top Right Floating Action Circles (Wishlist Heart & Share) -->
+            <div class="absolute top-3 right-3 flex flex-col gap-2 z-10" onclick="event.stopPropagation()">
+              <button onclick="appManager.toggleWishlist('m-07', event)" class="action-circle-btn" title="Save to Wishlist" aria-label="Save to Wishlist">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+              </button>
+              <button onclick="appManager.shareProduct('m-07', event)" class="action-circle-btn" title="Share Garment" aria-label="Share Garment">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Bottom Floating 'QUICK ADD +' Overlay (Matching Reference Image 2) -->
+            <div class="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
+              <button onclick="appManager.openQuickView('m-07')" class="w-full py-2.5 bg-black/90 hover:bg-black text-white text-[11px] uppercase tracking-wider font-sans font-bold flex items-center justify-center gap-1.5 backdrop-blur-sm shadow-md transition-all">
+                <span>QUICK ADD +</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Details (Typography Matching Reference Image 2) -->
+          <div class="pt-3.5 pb-2 flex flex-col justify-between flex-1">
+            <div>
+              <!-- Bold Uppercase Title -->
+              <h3 class="text-[13px] sm:text-[14px] font-sans font-black tracking-tight text-neutral-900 uppercase line-clamp-1 hover:text-neutral-600 transition-colors cursor-pointer" onclick="appManager.openQuickView('m-07')">
+                HEAVYWEIGHT CREW T-SHIRT
+              </h3>
+              
+              <!-- Category / Sub-Category in Subtle Gray -->
+              <div class="text-[11px] font-sans text-neutral-500 uppercase tracking-wide mt-0.5">
+                T-Shirts
+              </div>
+            </div>
+
+            <!-- Price with Rupee Symbol -->
+            <div class="mt-2 text-[14px] sm:text-[15px] font-sans font-bold text-neutral-900 tracking-tight">
+              ₹999
+            </div>
+          </div>
+
+        </div>
+  
+
+        <div class="product-card group flex flex-col justify-between bg-white text-left">
+          
+          <!-- Image Container with Square Sharp Look & Hover Quick View -->
+          <div class="relative w-full aspect-[4/5] overflow-hidden bg-neutral-100 cursor-pointer" onclick="appManager.openQuickView('m-08')">
+            <img src="/assets/men/T- shirts.avif" alt="SIGNATURE BOX T-SHIRT" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 primary-img" loading="lazy"/>
+            <img src="/assets/men/T- shirts (2).avif" alt="SIGNATURE BOX T-SHIRT back" class="secondary-img w-full h-full object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" loading="lazy"/>
+
+            <!-- Top Left Black Solid Rectangle Badge (MSQ PICK / VD PICK style) -->
+            
+              <div class="absolute top-3 left-3 z-10">
+                <span class="bg-black text-white px-2.5 py-1 text-[11px] font-sans font-black tracking-wider uppercase inline-block shadow-sm">
+                  HOT
+                </span>
+              </div>
+            
+
+            <!-- Top Right Floating Action Circles (Wishlist Heart & Share) -->
+            <div class="absolute top-3 right-3 flex flex-col gap-2 z-10" onclick="event.stopPropagation()">
+              <button onclick="appManager.toggleWishlist('m-08', event)" class="action-circle-btn" title="Save to Wishlist" aria-label="Save to Wishlist">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+              </button>
+              <button onclick="appManager.shareProduct('m-08', event)" class="action-circle-btn" title="Share Garment" aria-label="Share Garment">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Bottom Floating 'QUICK ADD +' Overlay (Matching Reference Image 2) -->
+            <div class="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
+              <button onclick="appManager.openQuickView('m-08')" class="w-full py-2.5 bg-black/90 hover:bg-black text-white text-[11px] uppercase tracking-wider font-sans font-bold flex items-center justify-center gap-1.5 backdrop-blur-sm shadow-md transition-all">
+                <span>QUICK ADD +</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Details (Typography Matching Reference Image 2) -->
+          <div class="pt-3.5 pb-2 flex flex-col justify-between flex-1">
+            <div>
+              <!-- Bold Uppercase Title -->
+              <h3 class="text-[13px] sm:text-[14px] font-sans font-black tracking-tight text-neutral-900 uppercase line-clamp-1 hover:text-neutral-600 transition-colors cursor-pointer" onclick="appManager.openQuickView('m-08')">
+                SIGNATURE BOX T-SHIRT
+              </h3>
+              
+              <!-- Category / Sub-Category in Subtle Gray -->
+              <div class="text-[11px] font-sans text-neutral-500 uppercase tracking-wide mt-0.5">
+                T-Shirts
+              </div>
+            </div>
+
+            <!-- Price with Rupee Symbol -->
+            <div class="mt-2 text-[14px] sm:text-[15px] font-sans font-bold text-neutral-900 tracking-tight">
+              ₹999
+            </div>
+          </div>
+
+        </div>
+  
+
+        <div class="product-card group flex flex-col justify-between bg-white text-left">
+          
+          <!-- Image Container with Square Sharp Look & Hover Quick View -->
+          <div class="relative w-full aspect-[4/5] overflow-hidden bg-neutral-100 cursor-pointer" onclick="appManager.openQuickView('m-09')">
+            <img src="/assets/men/T- shirts (2).avif" alt="MINIMALIST STREET T-SHIRT" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 primary-img" loading="lazy"/>
+            <img src="/assets/men/T- shirts.avif" alt="MINIMALIST STREET T-SHIRT back" class="secondary-img w-full h-full object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" loading="lazy"/>
+
+            <!-- Top Left Black Solid Rectangle Badge (MSQ PICK / VD PICK style) -->
+            
+              <div class="absolute top-3 left-3 z-10">
+                <span class="bg-black text-white px-2.5 py-1 text-[11px] font-sans font-black tracking-wider uppercase inline-block shadow-sm">
+                  NEW
+                </span>
+              </div>
+            
+
+            <!-- Top Right Floating Action Circles (Wishlist Heart & Share) -->
+            <div class="absolute top-3 right-3 flex flex-col gap-2 z-10" onclick="event.stopPropagation()">
+              <button onclick="appManager.toggleWishlist('m-09', event)" class="action-circle-btn" title="Save to Wishlist" aria-label="Save to Wishlist">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+              </button>
+              <button onclick="appManager.shareProduct('m-09', event)" class="action-circle-btn" title="Share Garment" aria-label="Share Garment">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Bottom Floating 'QUICK ADD +' Overlay (Matching Reference Image 2) -->
+            <div class="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
+              <button onclick="appManager.openQuickView('m-09')" class="w-full py-2.5 bg-black/90 hover:bg-black text-white text-[11px] uppercase tracking-wider font-sans font-bold flex items-center justify-center gap-1.5 backdrop-blur-sm shadow-md transition-all">
+                <span>QUICK ADD +</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Details (Typography Matching Reference Image 2) -->
+          <div class="pt-3.5 pb-2 flex flex-col justify-between flex-1">
+            <div>
+              <!-- Bold Uppercase Title -->
+              <h3 class="text-[13px] sm:text-[14px] font-sans font-black tracking-tight text-neutral-900 uppercase line-clamp-1 hover:text-neutral-600 transition-colors cursor-pointer" onclick="appManager.openQuickView('m-09')">
+                MINIMALIST STREET T-SHIRT
+              </h3>
+              
+              <!-- Category / Sub-Category in Subtle Gray -->
+              <div class="text-[11px] font-sans text-neutral-500 uppercase tracking-wide mt-0.5">
+                T-Shirts
+              </div>
+            </div>
+
+            <!-- Price with Rupee Symbol -->
+            <div class="mt-2 text-[14px] sm:text-[15px] font-sans font-bold text-neutral-900 tracking-tight">
+              ₹999
+            </div>
+          </div>
+
+        </div>
+  
+
+        <div class="product-card group flex flex-col justify-between bg-white text-left">
+          
+          <!-- Image Container with Square Sharp Look & Hover Quick View -->
+          <div class="relative w-full aspect-[4/5] overflow-hidden bg-neutral-100 cursor-pointer" onclick="appManager.openQuickView('m-10')">
+            <img src="/assets/men/Hoodies.jpg" alt="OVERSIZED FRENCH TERRY HOODIE" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 primary-img" loading="lazy"/>
+            <img src="/assets/men/Hoodies (2).jpg" alt="OVERSIZED FRENCH TERRY HOODIE back" class="secondary-img w-full h-full object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" loading="lazy"/>
+
+            <!-- Top Left Black Solid Rectangle Badge (MSQ PICK / VD PICK style) -->
+            
+              <div class="absolute top-3 left-3 z-10">
+                <span class="bg-black text-white px-2.5 py-1 text-[11px] font-sans font-black tracking-wider uppercase inline-block shadow-sm">
+                  BESTSELLER
+                </span>
+              </div>
+            
+
+            <!-- Top Right Floating Action Circles (Wishlist Heart & Share) -->
+            <div class="absolute top-3 right-3 flex flex-col gap-2 z-10" onclick="event.stopPropagation()">
+              <button onclick="appManager.toggleWishlist('m-10', event)" class="action-circle-btn" title="Save to Wishlist" aria-label="Save to Wishlist">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+              </button>
+              <button onclick="appManager.shareProduct('m-10', event)" class="action-circle-btn" title="Share Garment" aria-label="Share Garment">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Bottom Floating 'QUICK ADD +' Overlay (Matching Reference Image 2) -->
+            <div class="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
+              <button onclick="appManager.openQuickView('m-10')" class="w-full py-2.5 bg-black/90 hover:bg-black text-white text-[11px] uppercase tracking-wider font-sans font-bold flex items-center justify-center gap-1.5 backdrop-blur-sm shadow-md transition-all">
+                <span>QUICK ADD +</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Details (Typography Matching Reference Image 2) -->
+          <div class="pt-3.5 pb-2 flex flex-col justify-between flex-1">
+            <div>
+              <!-- Bold Uppercase Title -->
+              <h3 class="text-[13px] sm:text-[14px] font-sans font-black tracking-tight text-neutral-900 uppercase line-clamp-1 hover:text-neutral-600 transition-colors cursor-pointer" onclick="appManager.openQuickView('m-10')">
+                OVERSIZED FRENCH TERRY HOODIE
+              </h3>
+              
+              <!-- Category / Sub-Category in Subtle Gray -->
+              <div class="text-[11px] font-sans text-neutral-500 uppercase tracking-wide mt-0.5">
+                Hoodies
+              </div>
+            </div>
+
+            <!-- Price with Rupee Symbol -->
+            <div class="mt-2 text-[14px] sm:text-[15px] font-sans font-bold text-neutral-900 tracking-tight">
+              ₹1,299
+            </div>
+          </div>
+
+        </div>
+  
+
+        <div class="product-card group flex flex-col justify-between bg-white text-left">
+          
+          <!-- Image Container with Square Sharp Look & Hover Quick View -->
+          <div class="relative w-full aspect-[4/5] overflow-hidden bg-neutral-100 cursor-pointer" onclick="appManager.openQuickView('m-11')">
+            <img src="/assets/men/Hoodies (2).jpg" alt="SIGNATURE FLEECE HOODIE" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 primary-img" loading="lazy"/>
+            <img src="/assets/men/Hoodies.jpg" alt="SIGNATURE FLEECE HOODIE back" class="secondary-img w-full h-full object-cover object-center absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" loading="lazy"/>
+
+            <!-- Top Left Black Solid Rectangle Badge (MSQ PICK / VD PICK style) -->
+            
+              <div class="absolute top-3 left-3 z-10">
+                <span class="bg-black text-white px-2.5 py-1 text-[11px] font-sans font-black tracking-wider uppercase inline-block shadow-sm">
+                  WINTER DROP
+                </span>
+              </div>
+            
+
+            <!-- Top Right Floating Action Circles (Wishlist Heart & Share) -->
+            <div class="absolute top-3 right-3 flex flex-col gap-2 z-10" onclick="event.stopPropagation()">
+              <button onclick="appManager.toggleWishlist('m-11', event)" class="action-circle-btn" title="Save to Wishlist" aria-label="Save to Wishlist">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+              </button>
+              <button onclick="appManager.shareProduct('m-11', event)" class="action-circle-btn" title="Share Garment" aria-label="Share Garment">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Bottom Floating 'QUICK ADD +' Overlay (Matching Reference Image 2) -->
+            <div class="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
+              <button onclick="appManager.openQuickView('m-11')" class="w-full py-2.5 bg-black/90 hover:bg-black text-white text-[11px] uppercase tracking-wider font-sans font-bold flex items-center justify-center gap-1.5 backdrop-blur-sm shadow-md transition-all">
+                <span>QUICK ADD +</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Details (Typography Matching Reference Image 2) -->
+          <div class="pt-3.5 pb-2 flex flex-col justify-between flex-1">
+            <div>
+              <!-- Bold Uppercase Title -->
+              <h3 class="text-[13px] sm:text-[14px] font-sans font-black tracking-tight text-neutral-900 uppercase line-clamp-1 hover:text-neutral-600 transition-colors cursor-pointer" onclick="appManager.openQuickView('m-11')">
+                SIGNATURE FLEECE HOODIE
+              </h3>
+              
+              <!-- Category / Sub-Category in Subtle Gray -->
+              <div class="text-[11px] font-sans text-neutral-500 uppercase tracking-wide mt-0.5">
+                Hoodies
+              </div>
+            </div>
+
+            <!-- Price with Rupee Symbol -->
+            <div class="mt-2 text-[14px] sm:text-[15px] font-sans font-bold text-neutral-900 tracking-tight">
+              ₹1,299
+            </div>
+          </div>
+
+        </div>
+  
+
+        <div class="product-card group flex flex-col justify-between bg-white text-left">
+          
+          <!-- Image Container with Square Sharp Look & Hover Quick View -->
+          <div class="relative w-full aspect-[4/5] overflow-hidden bg-neutral-100 cursor-pointer" onclick="appManager.openQuickView('m-12')">
+            <img src="/assets/men/Formal trousers.avif" alt="MEN FORMAL TROUSERS" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 primary-img" loading="lazy"/>
+            
+
+            <!-- Top Left Black Solid Rectangle Badge (MSQ PICK / VD PICK style) -->
+            
+              <div class="absolute top-3 left-3 z-10">
+                <span class="bg-black text-white px-2.5 py-1 text-[11px] font-sans font-black tracking-wider uppercase inline-block shadow-sm">
+                  TAILORED
+                </span>
+              </div>
+            
+
+            <!-- Top Right Floating Action Circles (Wishlist Heart & Share) -->
+            <div class="absolute top-3 right-3 flex flex-col gap-2 z-10" onclick="event.stopPropagation()">
+              <button onclick="appManager.toggleWishlist('m-12', event)" class="action-circle-btn" title="Save to Wishlist" aria-label="Save to Wishlist">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+              </button>
+              <button onclick="appManager.shareProduct('m-12', event)" class="action-circle-btn" title="Share Garment" aria-label="Share Garment">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Bottom Floating 'QUICK ADD +' Overlay (Matching Reference Image 2) -->
+            <div class="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
+              <button onclick="appManager.openQuickView('m-12')" class="w-full py-2.5 bg-black/90 hover:bg-black text-white text-[11px] uppercase tracking-wider font-sans font-bold flex items-center justify-center gap-1.5 backdrop-blur-sm shadow-md transition-all">
+                <span>QUICK ADD +</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Details (Typography Matching Reference Image 2) -->
+          <div class="pt-3.5 pb-2 flex flex-col justify-between flex-1">
+            <div>
+              <!-- Bold Uppercase Title -->
+              <h3 class="text-[13px] sm:text-[14px] font-sans font-black tracking-tight text-neutral-900 uppercase line-clamp-1 hover:text-neutral-600 transition-colors cursor-pointer" onclick="appManager.openQuickView('m-12')">
+                MEN FORMAL TROUSERS
+              </h3>
+              
+              <!-- Category / Sub-Category in Subtle Gray -->
+              <div class="text-[11px] font-sans text-neutral-500 uppercase tracking-wide mt-0.5">
+                Formal Pants
+              </div>
+            </div>
+
+            <!-- Price with Rupee Symbol -->
+            <div class="mt-2 text-[14px] sm:text-[15px] font-sans font-bold text-neutral-900 tracking-tight">
+              ₹999
+            </div>
+          </div>
+
+        </div>
+  
+
+        <div class="product-card group flex flex-col justify-between bg-white text-left">
+          
+          <!-- Image Container with Square Sharp Look & Hover Quick View -->
+          <div class="relative w-full aspect-[4/5] overflow-hidden bg-neutral-100 cursor-pointer" onclick="appManager.openQuickView('m-13')">
+            <img src="/assets/men/jeans pants.avif" alt="RELAXED FIT JEANS" class="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700 primary-img" loading="lazy"/>
+            
+
+            <!-- Top Left Black Solid Rectangle Badge (MSQ PICK / VD PICK style) -->
+            
+              <div class="absolute top-3 left-3 z-10">
+                <span class="bg-black text-white px-2.5 py-1 text-[11px] font-sans font-black tracking-wider uppercase inline-block shadow-sm">
+                  RAW DENIM
+                </span>
+              </div>
+            
+
+            <!-- Top Right Floating Action Circles (Wishlist Heart & Share) -->
+            <div class="absolute top-3 right-3 flex flex-col gap-2 z-10" onclick="event.stopPropagation()">
+              <button onclick="appManager.toggleWishlist('m-13', event)" class="action-circle-btn" title="Save to Wishlist" aria-label="Save to Wishlist">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
+                </svg>
+              </button>
+              <button onclick="appManager.shareProduct('m-13', event)" class="action-circle-btn" title="Share Garment" aria-label="Share Garment">
+                <svg class="w-3.5 h-3.5 text-neutral-800" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"/>
+                </svg>
+              </button>
+            </div>
+
+            <!-- Bottom Floating 'QUICK ADD +' Overlay (Matching Reference Image 2) -->
+            <div class="absolute inset-x-0 bottom-0 p-3 translate-y-full group-hover:translate-y-0 transition-transform duration-300 z-10">
+              <button onclick="appManager.openQuickView('m-13')" class="w-full py-2.5 bg-black/90 hover:bg-black text-white text-[11px] uppercase tracking-wider font-sans font-bold flex items-center justify-center gap-1.5 backdrop-blur-sm shadow-md transition-all">
+                <span>QUICK ADD +</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Product Details (Typography Matching Reference Image 2) -->
+          <div class="pt-3.5 pb-2 flex flex-col justify-between flex-1">
+            <div>
+              <!-- Bold Uppercase Title -->
+              <h3 class="text-[13px] sm:text-[14px] font-sans font-black tracking-tight text-neutral-900 uppercase line-clamp-1 hover:text-neutral-600 transition-colors cursor-pointer" onclick="appManager.openQuickView('m-13')">
+                RELAXED FIT JEANS
+              </h3>
+              
+              <!-- Category / Sub-Category in Subtle Gray -->
+              <div class="text-[11px] font-sans text-neutral-500 uppercase tracking-wide mt-0.5">
+                Jeans
+              </div>
+            </div>
+
+            <!-- Price with Rupee Symbol -->
+            <div class="mt-2 text-[14px] sm:text-[15px] font-sans font-bold text-neutral-900 tracking-tight">
+              ₹1,499
+            </div>
+          </div>
+
+        </div>
+  
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= CLOTHING BRAND QUOTE STATEMENT ================= -->
+  <section class="bg-[#0D0D0D] text-white py-24 sm:py-32 px-4 sm:px-6 lg:px-8 border-t border-neutral-800 text-center relative overflow-hidden">
+    <!-- Subtle Ambient Radial Gold Glow -->
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(223,189,116,0.07)_0,transparent_75%)] pointer-events-none"></div>
+
+    <div class="max-w-4xl mx-auto space-y-6 sm:space-y-8 relative z-10">
+      <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-[10px] sm:text-[11px] font-mono tracking-[0.25em] uppercase bg-neutral-900/90 text-[#DFBD74] border border-[#DFBD74]/30 shadow-sm">
+        <span class="w-1.5 h-1.5 rounded-full bg-[#DFBD74] animate-pulse"></span>
+        MOSQUITO HOUSE PHILOSOPHY
+      </div>
+
+      <div class="relative">
+        <span class="font-editorial text-5xl sm:text-7xl text-[#DFBD74]/25 block leading-none select-none -mb-6 sm:-mb-8">“</span>
+        <blockquote class="font-editorial text-2xl sm:text-4xl md:text-5xl font-light text-neutral-100 leading-snug sm:leading-tight tracking-tight px-4">
+          Style is not about being noticed, it is about being remembered. We craft every thread so you can wear your confidence with silent power.
+        </blockquote>
+      </div>
+
+      <div class="pt-4 flex items-center justify-center gap-3">
+        <div class="w-12 h-[1px] bg-[#DFBD74]/40"></div>
+        <span class="font-mono text-[11px] sm:text-xs uppercase tracking-[0.25em] text-[#DFBD74] font-medium">
+          MOSQUITO • RAW STREET COUTURE
+        </span>
+        <div class="w-12 h-[1px] bg-[#DFBD74]/40"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FOOTER (MATCHING REFERENCE IMAGE 1) ================= -->
+  <footer class="bg-[#F2F1ED] text-neutral-900 border-t border-neutral-300/80 pt-16 pb-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Top Columns & Bold Brand Logo -->
+      <div class="grid grid-cols-2 md:grid-cols-12 gap-8 lg:gap-12 items-start pb-16 border-b border-neutral-300/70">
+        
+        <!-- Column 1: SHOP (3 cols) -->
+        <div class="col-span-1 md:col-span-3 lg:col-span-3 space-y-4">
+          <h4 class="font-sans font-black text-xs uppercase tracking-[0.18em] text-neutral-900">SHOP</h4>
+          <ul class="space-y-2.5 text-xs text-neutral-700 font-sans">
+            <li><a href="#catalog-section" onclick="window.appManager.filterCategory('All'); return false;" class="hover:text-black transition-colors">All</a></li>
+            <li><a href="#catalog-section" onclick="window.appManager.filterTopwear(); return false;" class="hover:text-black transition-colors">Topwear</a></li>
+            <li><a href="#catalog-section" onclick="window.appManager.filterBottomwear(); return false;" class="hover:text-black transition-colors">Bottomwear</a></li>
+            <li><a href="#catalog-section" onclick="window.appManager.filterCategory('Hoodies'); return false;" class="hover:text-black transition-colors">Outerwear</a></li>
+            <li><a href="#" onclick="window.infoManager.open('sale'); return false;" class="hover:text-black transition-colors flex items-center gap-1.5 font-medium"><span>Sale</span><span class="bg-rose-600 text-white text-[9px] px-1.5 py-0.2 rounded font-bold font-mono uppercase">10% Off</span></a></li>
+            <li><a href="#" onclick="window.infoManager.open('wishlist'); return false;" class="hover:text-black transition-colors">Wishlist</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 2: HELP (4 cols) -->
+        <div class="col-span-1 md:col-span-4 lg:col-span-4 space-y-4">
+          <h4 class="font-sans font-black text-xs uppercase tracking-[0.18em] text-neutral-900">HELP</h4>
+          <ul class="space-y-2.5 text-xs text-neutral-700 font-sans">
+            <li><a href="#" onclick="window.infoManager.open('return-exchange'); return false;" class="hover:text-black transition-colors">Make a Return / Exchange</a></li>
+            <li><a href="#" onclick="window.infoManager.open('track-order'); return false;" class="hover:text-black transition-colors">Track Your Order</a></li>
+            <li><a href="#" onclick="window.infoManager.open('shipping-policy'); return false;" class="hover:text-black transition-colors">Shipping Policy</a></li>
+            <li><a href="#" onclick="window.infoManager.open('size-guide'); return false;" class="hover:text-black transition-colors">Size Guide</a></li>
+            <li><a href="#" onclick="window.infoManager.open('contact-us'); return false;" class="hover:text-black transition-colors">Contact Us</a></li>
+            <li><a href="#" onclick="window.infoManager.open('faqs'); return false;" class="hover:text-black transition-colors">FAQ's</a></li>
+            <li><a href="#" onclick="window.infoManager.open('gift-card'); return false;" class="hover:text-black transition-colors">Check Gift Card Balance</a></li>
+          </ul>
+        </div>
+
+        <!-- Column 3: Large Bold Brand Title (5 cols) -->
+        <div class="col-span-2 md:col-span-5 lg:col-span-5 flex items-start md:justify-end">
+          <h2 class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-sans font-black tracking-tighter text-neutral-950 uppercase select-none leading-none">
+            MOSQUITO
+          </h2>
+        </div>
+
+      </div>
+
+      <!-- Bottom Bar: Social Icons on Left, Copyright on Right -->
+      <div class="pt-8 flex flex-col md:flex-row items-center justify-between gap-6 text-xs text-neutral-600 font-sans">
+        
+        <!-- Social Media Circle Buttons (Instagram & WhatsApp) -->
+        <div class="flex items-center gap-3">
+          <!-- Instagram -->
+          <a href="https://www.instagram.com/mosquito.stores/" target="_blank" class="w-9 h-9 rounded-full border border-neutral-300 bg-transparent flex items-center justify-center text-neutral-800 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-all shadow-xs" aria-label="Instagram">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+          </a>
+          <!-- WhatsApp -->
+          <a href="https://wa.me/919490751996" target="_blank" class="w-9 h-9 rounded-full border border-neutral-300 bg-transparent flex items-center justify-center text-neutral-800 hover:bg-neutral-900 hover:text-white hover:border-neutral-900 transition-all shadow-xs" aria-label="WhatsApp">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+          </a>
+        </div>
+
+        <!-- Copyright (Matching Image 1) -->
+        <div class="text-[11px] font-mono tracking-wider text-neutral-500 text-center md:text-right uppercase">
+          © 2026 MOSQUITO APPAREL PRIVATE LIMITED. ALL RIGHTS RESERVED. MADE WITH <span class="text-rose-600">♥</span> IN INDIA
+        </div>
+
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Floating Sticky Action Buttons (Scroll to Top & WhatsApp Concierge) -->
+  <div class="fixed bottom-6 right-6 z-40 flex flex-col items-center gap-3">
+    <!-- Scroll To Top Button -->
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="w-11 h-11 rounded-full bg-black text-white flex items-center justify-center shadow-xl hover:bg-neutral-800 hover:scale-110 transition-all" aria-label="Scroll to top">
+      <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 10l7-7m0 0l7 7m-7-7v18"/></svg>
+    </button>
+    <!-- WhatsApp Floating Trigger Button -->
+    <a href="https://wa.me/919490751996" target="_blank" class="w-13 h-13 p-3 rounded-full bg-[#25D366] text-white flex items-center justify-center shadow-2xl hover:scale-110 transition-all" aria-label="Chat on WhatsApp">
+      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+    </a>
+  </div>
+
+  <!-- ================= SLIDE-OVER QUICK BAG (DRAWER) ================= -->
+  <div id="bag-backdrop" class="drawer-backdrop" style="display: none;"></div>
+  
+  <aside id="quick-bag-drawer" class="slide-drawer" aria-label="Shopping Bag" data-lenis-prevent style="visibility: hidden;">
+    <!-- Drawer Header -->
+    <div class="p-6 border-b border-neutral-200 flex items-center justify-between bg-white">
+      <div class="flex items-center gap-2">
+        <svg class="w-5 h-5 text-neutral-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+        </svg>
+        <h3 class="font-sans font-semibold text-base text-neutral-900 tracking-tight">Shopping Bag</h3>
+        <span class="cart-badge-count text-xs font-mono bg-neutral-100 text-neutral-800 px-2 py-0.5 rounded-full font-medium">0</span>
+      </div>
+      <button data-action="close-bag" class="p-1.5 rounded-full hover:bg-neutral-100 text-neutral-400 hover:text-neutral-900 transition-colors" aria-label="Close Bag">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <!-- Free Shipping Indicator -->
+    <div class="px-6 py-3 bg-neutral-50 border-b border-neutral-200/80">
+      <div id="free-shipping-msg" class="text-xs text-neutral-600 mb-2">
+        Complimentary Express Air Delivery across India on all orders
+      </div>
+      <div class="shipping-progress-track">
+        <div id="free-shipping-bar" class="shipping-progress-fill" style="width: 100%;"></div>
+      </div>
+    </div>
+
+    <!-- Cart Items Scrollable List -->
+    <div class="flex-1 overflow-y-auto p-6 space-y-2" id="drawer-items-list" data-lenis-prevent>
+      <!-- Populated via js/cart.js -->
+    </div>
+
+    <!-- Empty State -->
+    <div id="drawer-empty-state" class="hidden flex-1 flex flex-col items-center justify-center p-8 text-center">
+      <div class="w-16 h-16 rounded-full bg-neutral-100 flex items-center justify-center text-neutral-400 mb-4">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+      </div>
+      <h4 class="font-editorial text-xl font-normal text-neutral-900">Your bag is empty</h4>
+      <p class="text-xs text-neutral-500 mt-1 max-w-xs">Discover our architectural ready-to-wear tailored pieces and essentials.</p>
+      <button data-action="close-bag" class="mt-6 px-6 py-2.5 bg-neutral-900 text-white rounded-full text-xs uppercase tracking-widest font-semibold hover:bg-black transition-all">
+        Explore Collection
+      </button>
+    </div>
+
+    <!-- Drawer Summary & Promo Code Engine -->
+    <div id="drawer-summary-section" class="p-6 bg-white border-t border-neutral-200 space-y-4">
+      
+      <!-- Promo Code Input -->
+      <div>
+        <div class="flex gap-2">
+          <input type="text" id="promo-code-input" placeholder="Promo code (e.g. MOSQUITO10)" class="flex-1 bg-neutral-50 border border-neutral-200 rounded-lg px-3 py-2 text-xs uppercase font-mono text-neutral-900 focus:outline-none focus:border-neutral-900 placeholder:text-neutral-400" />
+          <button id="apply-promo-btn" class="px-4 py-2 bg-neutral-100 hover:bg-neutral-900 hover:text-white border border-neutral-200 rounded-lg text-xs font-mono font-medium transition-colors">
+            Apply
+          </button>
+        </div>
+        <div id="promo-status-msg"></div>
+      </div>
+
+      <!-- Price Breakdown -->
+      <div class="space-y-2 pt-2 border-t border-neutral-100 text-xs">
+        <div class="flex justify-between text-neutral-600">
+          <span>Subtotal</span>
+          <span id="drawer-subtotal" class="font-mono font-medium text-neutral-900">$0</span>
+        </div>
+        <div id="drawer-discount-row" class="hidden flex justify-between text-emerald-600">
+          <span>Privilege Discount</span>
+          <span id="drawer-discount" class="font-mono font-medium">-$0</span>
+        </div>
+        <div class="flex justify-between text-sm font-semibold text-neutral-900 pt-2 border-t border-neutral-200">
+          <span>Estimated Total</span>
+          <span id="drawer-total" class="font-mono text-base text-neutral-900">$0</span>
+        </div>
+      </div>
+
+      <!-- Checkout Action Button -->
+      <button id="drawer-checkout-btn" class="w-full py-4 bg-neutral-900 text-white rounded-full text-xs uppercase tracking-widest font-semibold hover:bg-black transition-all flex items-center justify-center gap-2 shadow-lg group">
+        <span>Proceed to Frictionless Checkout</span>
+        <svg class="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+        </svg>
+      </button>
+
+      <div class="flex items-center justify-center gap-4 text-[10px] text-neutral-400 font-mono pt-1">
+        <span>🔒 256-Bit SSL Encrypted</span>
+        <span>•</span>
+        <span>30-Day Easy Returns</span>
+      </div>
+
+    </div>
+  </aside>
+
+  <!-- ================= ULTRA USER-FRIENDLY 2-STEP EXPRESS BOOKING MODAL ================= -->
+  <div id="checkout-modal-backdrop" class="checkout-modal-container bg-black/75 backdrop-blur-md" data-lenis-prevent style="display: none;">
+    <div class="checkout-card max-w-5xl overflow-hidden bg-white shadow-2xl rounded-2xl border border-neutral-200" id="checkout-card-content">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-4 border-b border-neutral-200 flex items-center justify-between bg-neutral-900 text-white">
+        <div class="flex items-center gap-3">
+          <img src="/assets/logo.svg" alt="Mosquito" class="w-6 h-6 object-contain invert" />
+          <div>
+            <div class="flex items-center gap-2">
+              <h3 class="font-brand text-xs tracking-[0.25em] font-bold text-white uppercase">MOSQUITO</h3>
+              <span class="bg-emerald-500 text-black font-mono text-[9px] uppercase px-1.5 py-0.5 rounded font-bold">Express Booking</span>
+            </div>
+            <span class="text-[11px] font-sans text-neutral-300">Fast, Frictionless & 100% Secure Checkout</span>
+          </div>
+        </div>
+        <button data-action="close-checkout" class="p-2 rounded-full hover:bg-neutral-800 text-neutral-400 hover:text-white transition-colors" aria-label="Close Checkout">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- 3-Step Tab Navigation Bar -->
+      <div id="checkout-tab-bar" class="px-6 py-3 bg-neutral-50 border-b border-neutral-200 flex items-center justify-between text-xs">
+        <div class="flex items-center gap-2 sm:gap-3 flex-1 overflow-x-auto scrollbar-none">
+          <button id="step-tab-1" onclick="window.checkoutManager.goToStep(1)" class="step-tab-btn active flex items-center gap-2 py-1 px-3 rounded-full text-xs font-medium transition-all flex-shrink-0">
+            <span class="step-num w-5 h-5 rounded-full flex items-center justify-center font-mono text-[11px] font-bold">1</span>
+            <span class="font-sans font-semibold">Customer Details</span>
+          </button>
+          
+          <div class="w-4 sm:w-8 h-[1px] bg-neutral-300 flex-shrink-0"></div>
+
+          <button id="step-tab-2" onclick="window.checkoutManager.goToStep(2)" class="step-tab-btn flex items-center gap-2 py-1 px-3 rounded-full text-xs font-medium transition-all flex-shrink-0">
+            <span class="step-num w-5 h-5 rounded-full flex items-center justify-center font-mono text-[11px] font-bold">2</span>
+            <span class="font-sans font-semibold">Payment Gateway</span>
+          </button>
+
+          <div class="w-4 sm:w-8 h-[1px] bg-neutral-300 flex-shrink-0"></div>
+
+          <button id="step-tab-3" class="step-tab-btn flex items-center gap-2 py-1 px-3 rounded-full text-xs font-medium transition-all flex-shrink-0 pointer-events-none opacity-50">
+            <span class="step-num w-5 h-5 rounded-full flex items-center justify-center font-mono text-[11px] font-bold">3</span>
+            <span class="font-sans font-semibold">Order Successful</span>
+          </button>
+        </div>
+
+        <div class="hidden sm:flex items-center gap-1.5 text-[11px] text-emerald-700 font-mono font-medium flex-shrink-0">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          <span>256-Bit SSL Encrypted</span>
+        </div>
+      </div>
+
+      <!-- Split Layout Body: Form on Left (60%), Interactive Summary on Right (40%) -->
+      <div id="checkout-card-content" class="grid grid-cols-1 lg:grid-cols-12 min-h-[480px]">
+        
+        <!-- LEFT COLUMN: Active Step Forms (7 cols) -->
+        <div class="lg:col-span-7 p-6 sm:p-8 flex flex-col justify-between border-b lg:border-b-0 lg:border-r border-neutral-200 bg-white">
+          
+          <!-- STEP 1: CUSTOMER DETAILS -->
+          <div id="checkout-step-1" class="space-y-4">
+            <div class="border-b border-neutral-100 pb-3">
+              <h4 class="text-base font-bold uppercase tracking-tight text-neutral-900">Customer & Delivery Details</h4>
+              <p class="text-xs text-neutral-500 mt-0.5">Complimentary domestic express delivery across all Indian pin codes.</p>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3.5 text-xs">
+              <!-- Full Name -->
+              <div class="sm:col-span-2">
+                <label class="block font-mono uppercase text-[10px] text-neutral-500 font-semibold mb-1">Full Legal Name *</label>
+                <input type="text" id="ship-name" placeholder="Enter recipient full name" class="w-full bg-neutral-50 border border-neutral-200 rounded-lg px-3.5 py-2.5 text-neutral-900 font-sans focus:bg-white focus:outline-none focus:border-neutral-900 transition-colors" />
+              </div>
+
+              <!-- Phone Number with +91 -->
+              <div>
+                <label class="block font-mono uppercase text-[10px] text-neutral-500 font-semibold mb-1">Mobile Number (For Delivery OTP) *</label>
+                <div class="flex">
+                  <span class="inline-flex items-center px-3 bg-neutral-100 border border-r-0 border-neutral-200 rounded-l-lg text-neutral-600 font-mono text-xs font-bold">+91</span>
+                  <input type="tel" id="ship-phone" maxlength="10" placeholder="9876543210" class="w-full bg-neutral-50 border border-neutral-200 rounded-r-lg px-3.5 py-2.5 text-neutral-900 font-mono focus:bg-white focus:outline-none focus:border-neutral-900 transition-colors" />
+                </div>
+              </div>
+
+              <!-- Email (Optional/Invoice) -->
+              <div>
+                <label class="block font-mono uppercase text-[10px] text-neutral-500 font-semibold mb-1">Email Address (Optional)</label>
+                <input type="email" id="ship-email" placeholder="name@example.com" class="w-full bg-neutral-50 border border-neutral-200 rounded-lg px-3.5 py-2.5 text-neutral-900 font-sans focus:bg-white focus:outline-none focus:border-neutral-900 transition-colors" />
+              </div>
+
+              <!-- Indian Pincode with Auto City/State Lookup -->
+              <div>
+                <label class="block font-mono uppercase text-[10px] text-neutral-500 font-semibold mb-1">6-Digit Indian Pincode *</label>
+                <input type="text" id="ship-pincode" maxlength="6" placeholder="e.g. 400001, 110001" class="w-full bg-neutral-50 border border-neutral-200 rounded-lg px-3.5 py-2.5 text-neutral-900 font-mono font-bold focus:bg-white focus:outline-none focus:border-neutral-900 transition-colors" />
+                <div id="pincode-status-badge" class="hidden"></div>
+              </div>
+
+              <!-- City -->
+              <div>
+                <label class="block font-mono uppercase text-[10px] text-neutral-500 font-semibold mb-1">City / Town *</label>
+                <input type="text" id="ship-city" placeholder="City name" class="w-full bg-neutral-50 border border-neutral-200 rounded-lg px-3.5 py-2.5 text-neutral-900 font-sans focus:bg-white focus:outline-none focus:border-neutral-900 transition-colors" />
+              </div>
+
+              <!-- Complete Street Address -->
+              <div class="sm:col-span-2">
+                <label class="block font-mono uppercase text-[10px] text-neutral-500 font-semibold mb-1">Flat / House No., Building, Street & Landmark *</label>
+                <input type="text" id="ship-address" placeholder="e.g. Flat 402, Signature Heights, MG Road" class="w-full bg-neutral-50 border border-neutral-200 rounded-lg px-3.5 py-2.5 text-neutral-900 font-sans focus:bg-white focus:outline-none focus:border-neutral-900 transition-colors" />
+              </div>
+
+              <!-- State -->
+              <div class="sm:col-span-2">
+                <label class="block font-mono uppercase text-[10px] text-neutral-500 font-semibold mb-1">State / Province *</label>
+                <input type="text" id="ship-state" placeholder="State" class="w-full bg-neutral-50 border border-neutral-200 rounded-lg px-3.5 py-2.5 text-neutral-900 font-sans focus:bg-white focus:outline-none focus:border-neutral-900 transition-colors" />
+              </div>
+            </div>
+
+            <!-- Address Memory & WhatsApp Checkboxes -->
+            <div class="pt-2 space-y-2 text-xs border-t border-neutral-100">
+              <label class="flex items-center gap-2 cursor-pointer text-neutral-700">
+                <input type="checkbox" id="ship-save-address" checked class="w-4 h-4 rounded text-black accent-black cursor-pointer" />
+                <span>Save this delivery address for 1-click repeat bookings</span>
+              </label>
+              <label class="flex items-center gap-2 cursor-pointer text-neutral-700">
+                <input type="checkbox" id="ship-whatsapp-optin" checked class="w-4 h-4 rounded text-emerald-600 accent-emerald-600 cursor-pointer" />
+                <span class="text-emerald-800 font-medium">Send real-time dispatch & live tracking updates to WhatsApp</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- STEP 2: PAYMENT METHOD SELECTION -->
+          <div id="checkout-step-2" class="hidden space-y-5">
+            <div class="border-b border-neutral-100 pb-3">
+              <h4 class="text-base font-bold uppercase tracking-tight text-neutral-900">Choose your preferred payment method</h4>
+              <p class="text-xs text-neutral-500 mt-0.5">Zero extra fees. 100% secure buyer protection guarantee.</p>
+            </div>
+
+            <!-- Payment Method Radio Options -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+              
+              <!-- UPI Card -->
+              <div class="payment-method-card active p-3.5 border-2 border-neutral-900 rounded-xl cursor-pointer bg-neutral-50 transition-all flex items-center justify-between" data-payment-method="upi">
+                <div class="flex items-center gap-3">
+                  <input type="radio" name="payment-method-choice" checked class="accent-black w-4 h-4 cursor-pointer" />
+                  <div>
+                    <div class="font-bold text-neutral-900">Instant UPI / QR</div>
+                    <div class="text-[10px] text-neutral-500 font-mono">GPay, PhonePe, Paytm, CRED</div>
+                  </div>
+                </div>
+                <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase font-mono">Fastest</span>
+              </div>
+
+              <!-- COD Card -->
+              <div class="payment-method-card p-3.5 border border-neutral-200 rounded-xl cursor-pointer hover:border-neutral-400 transition-all flex items-center justify-between" data-payment-method="cod">
+                <div class="flex items-center gap-3">
+                  <input type="radio" name="payment-method-choice" class="accent-black w-4 h-4 cursor-pointer" />
+                  <div>
+                    <div class="font-bold text-neutral-900">Cash on Delivery</div>
+                    <div class="text-[10px] text-neutral-500 font-mono">Pay cash/UPI at doorstep</div>
+                  </div>
+                </div>
+                <span class="bg-neutral-100 text-neutral-700 text-[10px] font-bold px-2 py-0.5 rounded uppercase font-mono">Verified</span>
+              </div>
+
+              <!-- WhatsApp Concierge Card -->
+              <div class="payment-method-card p-3.5 border border-neutral-200 rounded-xl cursor-pointer hover:border-neutral-400 transition-all flex items-center justify-between" data-payment-method="whatsapp">
+                <div class="flex items-center gap-3">
+                  <input type="radio" name="payment-method-choice" class="accent-black w-4 h-4 cursor-pointer" />
+                  <div>
+                    <div class="font-bold text-emerald-800 flex items-center gap-1.5">
+                      <span>WhatsApp Booking</span>
+                    </div>
+                    <div class="text-[10px] text-neutral-500 font-mono">Order with personal concierge</div>
+                  </div>
+                </div>
+                <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase font-mono">1-Click</span>
+              </div>
+
+              <!-- Card Payment -->
+              <div class="payment-method-card p-3.5 border border-neutral-200 rounded-xl cursor-pointer hover:border-neutral-400 transition-all flex items-center justify-between" data-payment-method="card">
+                <div class="flex items-center gap-3">
+                  <input type="radio" name="payment-method-choice" class="accent-black w-4 h-4 cursor-pointer" />
+                  <div>
+                    <div class="font-bold text-neutral-900">Cards / NetBanking</div>
+                    <div class="text-[10px] text-neutral-500 font-mono">Visa, MasterCard, RuPay</div>
+                  </div>
+                </div>
+                <span class="bg-neutral-100 text-neutral-700 text-[10px] font-bold px-2 py-0.5 rounded uppercase font-mono">Cards</span>
+              </div>
+
+            </div>
+
+            <!-- Sub-Panel: UPI QR Code & App Chips -->
+            <div id="payment-panel-upi" class="bg-neutral-50 border border-neutral-200 rounded-xl p-5 text-center space-y-4">
+              <div class="flex flex-col sm:flex-row items-center justify-center gap-5">
+                <div class="w-32 h-32 bg-white p-2 rounded-xl border border-neutral-200 shadow-sm flex items-center justify-center flex-shrink-0">
+                  <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=pay@mosquito&pn=MosquitoIndia" alt="UPI QR Code" class="w-full h-full object-contain" />
+                </div>
+                <div class="text-left space-y-2">
+                  <div class="text-xs font-bold text-neutral-900">Scan & Pay using any UPI App</div>
+                  <div class="flex flex-wrap gap-1.5">
+                    <span class="upi-app-chip px-2.5 py-1 bg-white border border-neutral-200 rounded text-[11px] font-medium text-neutral-700 shadow-xs">Google Pay</span>
+                    <span class="upi-app-chip px-2.5 py-1 bg-white border border-neutral-200 rounded text-[11px] font-medium text-neutral-700 shadow-xs">PhonePe</span>
+                    <span class="upi-app-chip px-2.5 py-1 bg-white border border-neutral-200 rounded text-[11px] font-medium text-neutral-700 shadow-xs">Paytm</span>
+                    <span class="upi-app-chip px-2.5 py-1 bg-white border border-neutral-200 rounded text-[11px] font-medium text-neutral-700 shadow-xs">CRED</span>
+                    <span class="upi-app-chip px-2.5 py-1 bg-white border border-neutral-200 rounded text-[11px] font-medium text-neutral-700 shadow-xs">BHIM</span>
+                  </div>
+                  <div class="pt-2 flex items-center gap-2 text-xs">
+                    <span class="font-mono text-neutral-500 text-[11px]">UPI ID: <span class="font-bold text-neutral-900">pay@mosquito</span></span>
+                    <button onclick="window.checkoutManager.copyUPIId()" class="px-2.5 py-1 bg-neutral-200 hover:bg-neutral-900 hover:text-white rounded text-[10px] font-mono uppercase font-bold transition-all">Copy ID</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sub-Panel: Cash on Delivery -->
+            <div id="payment-panel-cod" class="hidden bg-amber-50/70 border border-amber-200 rounded-xl p-4 text-xs text-neutral-800 space-y-1.5">
+              <div class="font-bold text-amber-900 flex items-center gap-1.5 text-sm">
+                <svg class="w-4 h-4 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+                <span>Zero Advance Payment Required</span>
+              </div>
+              <p class="text-neutral-600">Pay conveniently when the courier arrives at your doorstep. Cash, QR code scan, or card tap on delivery are all supported.</p>
+            </div>
+
+            <!-- Sub-Panel: WhatsApp Concierge -->
+            <div id="payment-panel-whatsapp" class="hidden bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-xs text-emerald-900 space-y-2">
+              <div class="font-bold text-emerald-950 flex items-center gap-1.5 text-sm">
+                <svg class="w-4 h-4 text-emerald-700" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+                <span>Direct 1-Click WhatsApp Booking Concierge</span>
+              </div>
+              <p class="text-emerald-800 leading-relaxed">Our dedicated shopping stylist will finalize your booking instantly on WhatsApp, answer sizing queries, and send you direct parcel tracking links.</p>
+            </div>
+
+            <!-- Sub-Panel: Credit / Debit Card -->
+            <div id="payment-panel-card" class="hidden space-y-3.5">
+              <!-- Holographic Luxury Card Preview -->
+              <div class="max-w-sm mx-auto bg-gradient-to-tr from-neutral-900 via-neutral-800 to-neutral-950 p-4 sm:p-5 rounded-2xl text-white shadow-xl border border-neutral-700 font-mono relative overflow-hidden">
+                <div class="flex justify-between items-center mb-4">
+                  <span class="text-[10px] tracking-widest text-[#DFBD74] uppercase font-bold">MOSQUITO PRIVILEGE</span>
+                  <span class="text-xs font-bold italic tracking-wider">RUPAY / VISA</span>
+                </div>
+                <div class="w-8 h-6 bg-amber-200/90 rounded mb-3 border border-amber-300"></div>
+                <div id="card-preview-number" class="text-sm sm:text-base tracking-[0.2em] font-medium text-neutral-200 mb-3">
+                  •••• •••• •••• ••••
+                </div>
+                <div class="flex justify-between text-[9px] text-neutral-400 uppercase tracking-wider">
+                  <div>
+                    <span>Cardholder</span>
+                    <div id="card-preview-name" class="text-white font-medium text-xs font-sans">CARDHOLDER NAME</div>
+                  </div>
+                  <div>
+                    <span>Expires</span>
+                    <div id="card-preview-expiry" class="text-white font-medium text-xs">MM/YY</div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+                <div class="sm:col-span-3">
+                  <label class="block font-mono uppercase text-[10px] text-neutral-500 font-semibold mb-1">Card Number *</label>
+                  <input type="text" id="card-number-input" placeholder="4532 8901 2345 8891" maxlength="19" class="w-full bg-neutral-50 border border-neutral-200 rounded-lg px-3 py-2 text-neutral-900 font-mono focus:outline-none focus:border-neutral-900" />
+                </div>
+                <div class="sm:col-span-2">
+                  <label class="block font-mono uppercase text-[10px] text-neutral-500 font-semibold mb-1">Cardholder Name *</label>
+                  <input type="text" id="card-holder-input" placeholder="Name on card" class="w-full bg-neutral-50 border border-neutral-200 rounded-lg px-3 py-2 text-neutral-900 focus:outline-none focus:border-neutral-900 uppercase" />
+                </div>
+                <div>
+                  <label class="block font-mono uppercase text-[10px] text-neutral-500 font-semibold mb-1">Expiry (MM/YY) *</label>
+                  <input type="text" id="card-expiry-input" placeholder="MM/YY" maxlength="5" class="w-full bg-neutral-50 border border-neutral-200 rounded-lg px-3 py-2 text-neutral-900 font-mono focus:outline-none focus:border-neutral-900" />
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Action Buttons in Step Footer -->
+          <div class="pt-6 border-t border-neutral-100 flex items-center justify-between mt-6">
+            <button id="checkout-back-btn" class="invisible px-5 py-2.5 border border-neutral-300 rounded-full text-xs font-mono uppercase font-bold text-neutral-700 hover:bg-neutral-100 transition-colors cursor-pointer">
+              ← Back
+            </button>
+            <button id="checkout-next-btn" class="px-9 py-3.5 bg-neutral-950 text-white rounded-full text-xs uppercase tracking-widest font-bold hover:bg-black transition-all flex items-center shadow-lg gap-2 cursor-pointer">
+              <span>Next</span>
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- RIGHT COLUMN: Interactive Live Order Summary Sidebar (5 cols) -->
+        <div class="lg:col-span-5 bg-neutral-50 p-6 sm:p-8 flex flex-col justify-between">
+          <div class="space-y-4">
+            
+            <div class="flex items-center justify-between pb-3 border-b border-neutral-200">
+              <h4 class="font-sans font-bold uppercase text-xs tracking-wider text-neutral-900">Order Summary</h4>
+              <span id="checkout-sidebar-count" class="font-mono text-xs bg-white border border-neutral-200 px-2 py-0.5 rounded-full font-bold text-neutral-800">0 Items</span>
+            </div>
+
+            <!-- Scrollable Items List with Live Steppers -->
+            <div id="checkout-sidebar-items" class="max-h-60 overflow-y-auto space-y-1 pr-1">
+              <!-- Rendered dynamically via checkout.js -->
+            </div>
+
+            <!-- Promo Code Field -->
+            <div class="pt-3 border-t border-neutral-200">
+              <div class="flex gap-2">
+                <input type="text" id="checkout-promo-input" placeholder="Promo code (e.g. MOSQUITO10)" class="flex-1 bg-white border border-neutral-200 rounded-lg px-3 py-2 text-xs uppercase font-mono text-neutral-900 focus:outline-none focus:border-neutral-900" />
+                <button id="checkout-apply-promo-btn" class="px-4 py-2 bg-neutral-900 hover:bg-black text-white rounded-lg text-xs font-mono font-bold uppercase transition-colors">
+                  Apply
+                </button>
+              </div>
+            </div>
+
+            <!-- Price Breakdown Calculation -->
+            <div class="space-y-2 pt-3 border-t border-neutral-200 text-xs">
+              <div class="flex justify-between text-neutral-600">
+                <span>Subtotal</span>
+                <span id="checkout-subtotal-val" class="font-mono font-semibold text-neutral-900">₹0</span>
+              </div>
+              <div id="checkout-discount-row" class="hidden flex justify-between text-emerald-700 font-semibold">
+                <span>Privilege Discount (10%)</span>
+                <span id="checkout-discount-val" class="font-mono">-₹0</span>
+              </div>
+              <div class="flex justify-between text-neutral-600">
+                <span>Domestic Air Express (Bluedart/Delhivery)</span>
+                <span class="font-mono text-emerald-700 font-bold">FREE</span>
+              </div>
+              <div class="flex justify-between text-base font-bold text-neutral-900 pt-3 border-t border-neutral-200">
+                <span>Total Amount</span>
+                <span id="checkout-total-val" class="font-mono text-lg text-neutral-900">₹0</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Trust Badges Footer -->
+          <div class="pt-6 border-t border-neutral-200 text-[11px] text-neutral-500 space-y-2">
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>100% Genuine MOSQUITO Quality Guaranteed</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>30-Day Hassle-Free Doorstep Exchanges & Returns</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Priority Customer Support via WhatsApp</span>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= QUICK VIEW PRODUCT MODAL ================= -->
+  <div id="quick-view-backdrop" class="checkout-modal-container bg-black/75 backdrop-blur-md" data-lenis-prevent style="display: none;">
+    <div class="checkout-card max-w-4xl p-6 md:p-8 relative bg-white">
+      <button id="quick-view-close-btn" class="absolute top-4 right-4 p-2 rounded-full hover:bg-neutral-100 text-neutral-400 hover:text-neutral-900 transition-colors z-10" aria-label="Close Quick View">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <div id="quick-view-content">
+        <!-- Populated dynamically via js/app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= INBUILT INFORMATION MODAL (FOR ALL FOOTER & CLIENT SERVICES) ================= -->
+  <div id="info-modal-backdrop" class="checkout-modal-container bg-black/75 backdrop-blur-md hidden transition-all duration-300" data-lenis-prevent style="display: none;">
+    <div class="checkout-card max-w-3xl w-full max-h-[90vh] flex flex-col bg-white overflow-hidden shadow-2xl relative">
+      
+      <!-- Modal Header -->
+      <div class="px-6 py-5 bg-[#0D0D0D] text-white flex items-center justify-between border-b border-neutral-800 flex-shrink-0">
+        <div>
+          <span id="info-modal-badge" class="text-[10px] font-mono tracking-[0.25em] text-[#DFBD74] uppercase font-bold">
+            HELP & SERVICES
+          </span>
+          <h3 id="info-modal-title" class="text-lg sm:text-xl font-sans font-bold text-white uppercase tracking-tight mt-0.5">
+            Information
+          </h3>
+        </div>
+        <button id="info-modal-close-btn" class="p-2 rounded-full hover:bg-neutral-800 text-neutral-400 hover:text-white transition-colors" aria-label="Close Modal">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div id="info-modal-content" class="p-6 sm:p-8 overflow-y-auto max-h-[calc(90vh-80px)] space-y-6" data-lenis-prevent>
+        <!-- Rendered dynamically via js/info-modal.js -->
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ================= TOAST NOTIFICATION CONTAINER ================= -->
+  <div id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="/js/lenis-scroll.js"></script>
+  <script src="/js/products.js"></script>
+  <script src="/js/cart.js"></script>
+  <script src="/js/checkout.js"></script>
+  <script src="/js/info-modal.js"></script>
+  <script src="/js/slider.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+</html>

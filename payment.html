@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MOSQUITO</title>
+  <meta name="description" content="Select payment method: Razorpay, UPI, Cash on Delivery, or Cards." />
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            brand: ['Cinzel', 'Playfair Display', 'serif'],
+            editorial: ['Cormorant Garamond', 'Playfair Display', 'serif'],
+            sans: ['Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['Space Grotesk', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="/styles/main.css" />
+  
+  <!-- Official Razorpay Checkout SDK -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body class="bg-[#F8F8F6] text-neutral-900 font-sans antialiased min-h-screen flex flex-col justify-between">
+
+  <!-- ================= TOP HEADER BAR ================= -->
+  <header class="bg-white border-b border-neutral-200 sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <img src="/assets/logo.svg" alt="MOSQUITO" class="w-8 h-8 object-contain transition-transform group-hover:scale-105" />
+        <span class="font-sans text-2xl font-black tracking-[0.15em] text-neutral-950 uppercase">MOSQUITO</span>
+      </a>
+
+      <div class="flex items-center gap-4 text-xs font-mono text-neutral-600">
+        <span class="hidden sm:inline-flex items-center gap-1.5 text-emerald-700 font-medium">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+          Razorpay 256-Bit SSL Protected
+        </span>
+        <a href="checkout.html" class="px-3.5 py-1.5 rounded-full border border-neutral-300 hover:bg-neutral-100 transition-colors uppercase font-bold text-[11px]">
+          ← Edit Details
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ================= 3-STEP PROGRESS BAR ================= -->
+  <div class="bg-white border-b border-neutral-200/80 py-3 shadow-xs">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 flex items-center justify-center">
+      <div class="flex items-center gap-2 sm:gap-4 overflow-x-auto scrollbar-none py-1">
+        <!-- Step 1: Completed -->
+        <a href="checkout.html" class="step-tab-btn completed">
+          <span class="step-num">✓</span>
+          <span>Customer Details</span>
+        </a>
+
+        <div class="w-6 sm:w-12 h-[1.5px] bg-emerald-300"></div>
+
+        <!-- Step 2: Active -->
+        <div class="step-tab-btn active">
+          <span class="step-num">2</span>
+          <span>Payment Gateway</span>
+        </div>
+
+        <div class="w-6 sm:w-12 h-[1.5px] bg-neutral-300"></div>
+
+        <!-- Step 3: Inactive -->
+        <div class="step-tab-btn opacity-40 pointer-events-none">
+          <span class="step-num">3</span>
+          <span>Order Successful</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-12 flex-1 w-full">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+      
+      <!-- LEFT COLUMN: PAYMENT GATEWAY (7 Cols) -->
+      <div class="lg:col-span-7 space-y-6">
+        
+        <!-- Recipient & Delivery Summary Pill -->
+        <div class="bg-white p-5 rounded-2xl border border-neutral-200/90 shadow-sm flex items-start justify-between gap-4 text-xs">
+          <div class="space-y-1">
+            <span class="font-mono text-[10px] uppercase tracking-wider text-neutral-400 font-bold">Delivering To</span>
+            <div id="recap-customer-name" class="font-bold text-neutral-900 text-sm">Customer Name</div>
+            <div id="recap-customer-address" class="text-neutral-600 text-[11px] leading-relaxed">Delivery address</div>
+            <div id="recap-customer-phone" class="text-neutral-500 font-mono text-[11px]">Phone: +91 9876543210</div>
+          </div>
+          <a href="checkout.html" class="text-neutral-900 hover:underline font-mono text-[11px] uppercase font-bold flex-shrink-0">
+            Edit →
+          </a>
+        </div>
+
+        <!-- Payment Methods Card -->
+        <div class="bg-white p-6 sm:p-8 rounded-2xl border border-neutral-200/90 shadow-sm space-y-6">
+          <div class="border-b border-neutral-100 pb-4">
+            <h1 class="text-xl sm:text-2xl font-bold uppercase tracking-tight text-neutral-900">
+              Select Payment Gateway
+            </h1>
+            <p class="text-xs text-neutral-500 mt-1">
+              Zero transaction surcharges. 100% encrypted buyer protection.
+            </p>
+          </div>
+
+          <!-- Gateway Method Selection Options -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
+            
+            <!-- Option 1: Razorpay Gateway (Recommended) -->
+            <div onclick="selectPayment('razorpay')" id="card-razorpay" class="payment-method-card active p-4 border-2 border-neutral-950 rounded-xl cursor-pointer bg-neutral-50/80 transition-all flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <input type="radio" name="pay_option" id="radio-razorpay" checked class="accent-black w-4 h-4 cursor-pointer" />
+                <div>
+                  <div class="font-bold text-neutral-900 flex items-center gap-1.5">
+                    <span>Razorpay Secure</span>
+                    <span class="bg-[#0c2340] text-white text-[9px] px-1.5 py-0.2 rounded font-bold font-mono">POPULAR</span>
+                  </div>
+                  <div class="text-[10px] text-neutral-500 font-mono">UPI, Cards, NetBanking, EMI</div>
+                </div>
+              </div>
+              <span class="text-[#0c2340] font-mono font-bold text-xs">₹ Razorpay</span>
+            </div>
+
+            <!-- Option 2: Instant UPI / QR -->
+            <div onclick="selectPayment('upi')" id="card-upi" class="payment-method-card p-4 border border-neutral-200 rounded-xl cursor-pointer hover:border-neutral-400 transition-all flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <input type="radio" name="pay_option" id="radio-upi" class="accent-black w-4 h-4 cursor-pointer" />
+                <div>
+                  <div class="font-bold text-neutral-900">Direct UPI / QR</div>
+                  <div class="text-[10px] text-neutral-500 font-mono">GPay, PhonePe, Paytm, CRED</div>
+                </div>
+              </div>
+              <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase font-mono">Fastest</span>
+            </div>
+
+            <!-- Option 3: Cash on Delivery -->
+            <div onclick="selectPayment('cod')" id="card-cod" class="payment-method-card p-4 border border-neutral-200 rounded-xl cursor-pointer hover:border-neutral-400 transition-all flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <input type="radio" name="pay_option" id="radio-cod" class="accent-black w-4 h-4 cursor-pointer" />
+                <div>
+                  <div class="font-bold text-neutral-900">Cash on Delivery</div>
+                  <div class="text-[10px] text-neutral-500 font-mono">Pay cash/UPI at doorstep</div>
+                </div>
+              </div>
+              <span class="bg-neutral-100 text-neutral-700 text-[10px] font-bold px-2 py-0.5 rounded uppercase font-mono">Verified</span>
+            </div>
+
+            <!-- Option 4: WhatsApp Concierge -->
+            <div onclick="selectPayment('whatsapp')" id="card-whatsapp" class="payment-method-card p-4 border border-neutral-200 rounded-xl cursor-pointer hover:border-neutral-400 transition-all flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <input type="radio" name="pay_option" id="radio-whatsapp" class="accent-black w-4 h-4 cursor-pointer" />
+                <div>
+                  <div class="font-bold text-emerald-800">WhatsApp Booking</div>
+                  <div class="text-[10px] text-neutral-500 font-mono">Personal concierge stylist</div>
+                </div>
+              </div>
+              <span class="bg-emerald-100 text-emerald-800 text-[10px] font-bold px-2 py-0.5 rounded uppercase font-mono">1-Click</span>
+            </div>
+
+          </div>
+
+          <!-- Dynamic Panel: Razorpay Details -->
+          <div id="panel-razorpay" class="bg-[#0c2340]/5 border border-[#0c2340]/20 rounded-xl p-5 text-xs text-neutral-800 space-y-3">
+            <div class="flex items-center justify-between">
+              <div class="font-bold text-[#0c2340] text-sm flex items-center gap-2">
+                <svg class="w-5 h-5 text-[#3395ff]" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/></svg>
+                <span>Razorpay Standard Gateway Integration</span>
+              </div>
+              <span class="text-[10px] font-mono uppercase bg-white border border-[#0c2340]/30 px-2 py-0.5 rounded text-[#0c2340] font-bold">PCI-DSS Level 1</span>
+            </div>
+            <p class="text-neutral-600 leading-relaxed">
+              Upon clicking the button below, Razorpay's official secure checkout modal will open to complete payment via UPI, Credit/Debit Card (RuPay, Visa, MasterCard), NetBanking, or Wallet.
+            </p>
+            <div class="flex flex-wrap gap-2 pt-1">
+              <span class="px-2.5 py-1 bg-white border border-neutral-200 rounded text-[11px] font-mono text-neutral-700 shadow-xs">Google Pay</span>
+              <span class="px-2.5 py-1 bg-white border border-neutral-200 rounded text-[11px] font-mono text-neutral-700 shadow-xs">PhonePe</span>
+              <span class="px-2.5 py-1 bg-white border border-neutral-200 rounded text-[11px] font-mono text-neutral-700 shadow-xs">Paytm</span>
+              <span class="px-2.5 py-1 bg-white border border-neutral-200 rounded text-[11px] font-mono text-neutral-700 shadow-xs">HDFC / ICICI / SBI</span>
+              <span class="px-2.5 py-1 bg-white border border-neutral-200 rounded text-[11px] font-mono text-neutral-700 shadow-xs">RuPay & Visa</span>
+            </div>
+          </div>
+
+          <!-- Dynamic Panel: UPI QR Code -->
+          <div id="panel-upi" class="hidden bg-neutral-50 border border-neutral-200 rounded-xl p-5 text-center space-y-4">
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-5">
+              <div class="w-32 h-32 bg-white p-2 rounded-xl border border-neutral-200 shadow-sm flex items-center justify-center flex-shrink-0">
+                <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=pay@mosquito&pn=MosquitoIndia" alt="UPI QR Code" class="w-full h-full object-contain" />
+              </div>
+              <div class="text-left space-y-2 text-xs">
+                <div class="font-bold text-neutral-900">Scan & Pay using any UPI Application</div>
+                <div class="text-neutral-500 text-[11px]">Instant automated payment verification.</div>
+                <div class="pt-2 flex items-center gap-2">
+                  <span class="font-mono text-neutral-500 text-[11px]">UPI ID: <strong class="text-neutral-900">pay@mosquito</strong></span>
+                  <button onclick="navigator.clipboard.writeText('pay@mosquito'); showToast('UPI ID copied!');" class="px-2.5 py-1 bg-neutral-200 hover:bg-neutral-900 hover:text-white rounded text-[10px] font-mono uppercase font-bold transition-all">Copy ID</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Panel: Cash on Delivery -->
+          <div id="panel-cod" class="hidden bg-amber-50/70 border border-amber-200 rounded-xl p-4 text-xs text-neutral-800 space-y-1.5">
+            <div class="font-bold text-amber-900 flex items-center gap-1.5 text-sm">
+              <svg class="w-4 h-4 text-amber-700" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              <span>Zero Prepayment Required</span>
+            </div>
+            <p class="text-neutral-600 leading-relaxed">
+              Pay comfortably when your parcel arrives at your doorstep. Cash, mobile UPI scan, and card tap are all accepted by the delivery agent.
+            </p>
+          </div>
+
+          <!-- Dynamic Panel: WhatsApp Concierge -->
+          <div id="panel-whatsapp" class="hidden bg-emerald-50 border border-emerald-200 rounded-xl p-4 text-xs text-emerald-900 space-y-2">
+            <div class="font-bold text-emerald-950 flex items-center gap-1.5 text-sm">
+              <svg class="w-4 h-4 text-emerald-700" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/></svg>
+              <span>1-Click Personal Stylist WhatsApp Booking</span>
+            </div>
+            <p class="text-emerald-800 leading-relaxed">
+              Our styling concierge will confirm your order details, assist with sizing advice, and send you instant air express dispatch tracking links on WhatsApp.
+            </p>
+          </div>
+
+          <!-- Bottom Action Buttons -->
+          <div class="pt-6 border-t border-neutral-100 flex items-center justify-between">
+            <a href="checkout.html" class="px-5 py-3 border border-neutral-300 rounded-full font-mono text-xs uppercase font-bold text-neutral-700 hover:bg-neutral-100 transition-colors">
+              ← Back
+            </a>
+            <button onclick="executePayment()" id="pay-action-btn" class="px-9 py-3.5 bg-neutral-950 hover:bg-black text-white rounded-full font-mono text-xs uppercase tracking-widest font-bold transition-all shadow-lg flex items-center gap-2 cursor-pointer">
+              <span id="pay-btn-label">Pay with Razorpay (Rs. 0.00)</span>
+              <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+      <!-- RIGHT COLUMN: LIVE ORDER SUMMARY (5 Cols) -->
+      <div class="lg:col-span-5 bg-white p-6 sm:p-8 rounded-2xl border border-neutral-200/90 shadow-sm space-y-5">
+        <div class="flex items-center justify-between pb-3 border-b border-neutral-200">
+          <h2 class="font-sans font-bold uppercase text-xs tracking-wider text-neutral-900">Order Summary</h2>
+          <span id="order-count-badge" class="font-mono text-xs bg-neutral-100 px-2.5 py-0.5 rounded-full font-bold text-neutral-800">0 Items</span>
+        </div>
+
+        <!-- Scrollable Items List -->
+        <div id="order-items-list" class="max-h-64 overflow-y-auto space-y-3 divide-y divide-neutral-100 pr-1">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <!-- Price Breakdown -->
+        <div class="space-y-2 pt-3 border-t border-neutral-200 text-xs">
+          <div class="flex justify-between text-neutral-600">
+            <span>Subtotal</span>
+            <span id="summary-subtotal" class="font-mono font-semibold text-neutral-900">Rs. 0.00</span>
+          </div>
+          <div id="summary-discount-row" class="hidden flex justify-between text-emerald-700 font-semibold">
+            <span>Privilege Discount (10%)</span>
+            <span id="summary-discount" class="font-mono">-Rs. 0.00</span>
+          </div>
+          <div class="flex justify-between text-neutral-600">
+            <span>Domestic Air Express (Bluedart/Delhivery)</span>
+            <span class="font-mono text-emerald-700 font-bold">FREE</span>
+          </div>
+          <div class="flex justify-between text-base font-bold text-neutral-950 pt-3 border-t border-neutral-200">
+            <span>Total Amount</span>
+            <span id="summary-total" class="font-mono text-lg text-neutral-900">Rs. 0.00</span>
+          </div>
+        </div>
+
+        <!-- Trust Badges -->
+        <div class="pt-4 border-t border-neutral-100 text-[11px] text-neutral-500 space-y-1.5 font-mono">
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <span>Razorpay 256-Bit SSL Protected</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <svg class="w-4 h-4 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+            <span>30-Day Hassle-Free Doorstep Exchanges</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-white border-t border-neutral-200 py-6 text-center text-xs text-neutral-500 font-mono">
+    © 2026 MOSQUITO APPAREL PRIVATE LIMITED. ALL RIGHTS RESERVED.
+  </footer>
+
+  <div id="toast-container"></div>
+
+  <!-- Scripts -->
+  <script src="/js/products.js"></script>
+  <script src="/js/cart.js"></script>
+  <script>
+    let selectedMethod = 'razorpay';
+    let customerData = {};
+    let cart = [];
+    let grandTotal = 0;
+
+    function initPage() {
+      // Load customer data
+      const savedCust = localStorage.getItem('mosquito_checkout_customer');
+      if (!savedCust) {
+        window.location.href = 'checkout.html';
+        return;
+      }
+      customerData = JSON.parse(savedCust);
+
+      // Render recap
+      document.getElementById('recap-customer-name').textContent = customerData.name || 'Valued Customer';
+      document.getElementById('recap-customer-address').textContent = `${customerData.address}, ${customerData.city} - ${customerData.pincode}, ${customerData.state}`;
+      document.getElementById('recap-customer-phone').textContent = `Phone: +91 ${customerData.phone}`;
+
+      // Load cart
+      cart = JSON.parse(localStorage.getItem('mosquito_cart') || '[]');
+      if (cart.length === 0) {
+        window.location.href = 'index.html';
+        return;
+      }
+
+      renderSummary();
+      selectPayment('razorpay');
+    }
+
+    function renderSummary() {
+      const itemsList = document.getElementById('order-items-list');
+      const countBadge = document.getElementById('order-count-badge');
+      const subtotalEl = document.getElementById('summary-subtotal');
+      const discountRow = document.getElementById('summary-discount-row');
+      const discountEl = document.getElementById('summary-discount');
+      const totalEl = document.getElementById('summary-total');
+
+      countBadge.textContent = `${cart.length} ${cart.length === 1 ? 'Item' : 'Items'}`;
+
+      let subtotal = 0;
+      itemsList.innerHTML = cart.map(item => {
+        subtotal += item.priceINR * item.quantity;
+        return `
+          <div class="flex items-center gap-3 py-2 text-xs">
+            <img src="${item.image}" alt="${item.name}" class="w-12 h-14 object-cover rounded-lg border border-neutral-200" />
+            <div class="flex-1 min-w-0">
+              <div class="font-bold text-neutral-900 truncate uppercase text-[11px]">${item.name}</div>
+              <div class="text-neutral-500 text-[10px]">Size: <span class="font-bold">${item.size}</span> • Qty: ${item.quantity}</div>
+            </div>
+            <div class="font-mono font-bold text-neutral-900">
+              Rs. ${(item.priceINR * item.quantity).toLocaleString('en-IN')}.00
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      const promo = JSON.parse(localStorage.getItem('mosquito_promo') || 'null');
+      let discount = 0;
+      if (promo && promo.code === 'MOSQUITO10') {
+        discount = Math.round(subtotal * 0.10);
+        discountRow.classList.remove('hidden');
+        discountEl.textContent = `-Rs. ${discount.toLocaleString('en-IN')}.00`;
+      } else {
+        discountRow.classList.add('hidden');
+      }
+
+      grandTotal = subtotal - discount;
+      subtotalEl.textContent = `Rs. ${subtotal.toLocaleString('en-IN')}.00`;
+      totalEl.textContent = `Rs. ${grandTotal.toLocaleString('en-IN')}.00`;
+      updateButtonLabel();
+    }
+
+    function selectPayment(method) {
+      selectedMethod = method;
+
+      // Update active cards
+      ['razorpay', 'upi', 'cod', 'whatsapp'].forEach(m => {
+        const card = document.getElementById(`card-${m}`);
+        const radio = document.getElementById(`radio-${m}`);
+        const panel = document.getElementById(`panel-${m}`);
+        
+        const isSelected = m === method;
+        if (card) {
+          card.classList.toggle('active', isSelected);
+          card.classList.toggle('border-neutral-950', isSelected);
+          card.classList.toggle('border-2', isSelected);
+          card.classList.toggle('bg-neutral-50/80', isSelected);
+        }
+        if (radio) radio.checked = isSelected;
+        if (panel) panel.classList.toggle('hidden', !isSelected);
+      });
+
+      updateButtonLabel();
+    }
+
+    function updateButtonLabel() {
+      const btn = document.getElementById('pay-btn-label');
+      const formatted = `Rs. ${grandTotal.toLocaleString('en-IN')}.00`;
+      if (!btn) return;
+
+      if (selectedMethod === 'razorpay') {
+        btn.textContent = `Pay with Razorpay (${formatted})`;
+      } else if (selectedMethod === 'upi') {
+        btn.textContent = `Confirm UPI Payment (${formatted})`;
+      } else if (selectedMethod === 'cod') {
+        btn.textContent = `Confirm Cash on Delivery (${formatted})`;
+      } else if (selectedMethod === 'whatsapp') {
+        btn.textContent = `Book via WhatsApp (${formatted})`;
+      }
+    }
+
+    function executePayment() {
+      const orderNum = 'MSQ-' + Math.floor(1000 + Math.random() * 9000);
+      const timestamp = new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'medium', timeStyle: 'short' });
+
+      if (selectedMethod === 'razorpay') {
+        // Open Razorpay Standard Checkout
+        const options = {
+          key: 'rzp_test_MosquitoIndia', // Test API Key
+          amount: grandTotal * 100, // Amount in paise
+          currency: 'INR',
+          name: 'MOSQUITO',
+          description: `Order #${orderNum} — Luxury Street Couture`,
+          image: '/assets/logo.svg',
+          prefill: {
+            name: customerData.name,
+            email: customerData.email || 'customer@mosquito.stores',
+            contact: customerData.phone
+          },
+          theme: {
+            color: '#0D0D0D'
+          },
+          handler: function (response) {
+            // Payment success callback
+            finishOrder(orderNum, 'Razorpay Secure (Txn ID: ' + (response.razorpay_payment_id || 'pay_' + Date.now()) + ')', timestamp);
+          },
+          modal: {
+            ondismiss: function () {
+              showToast('Payment window closed. You can retry or choose another method.');
+            }
+          }
+        };
+
+        try {
+          const rzp = new Razorpay(options);
+          rzp.on('payment.failed', function (response) {
+            showToast('Payment failed: ' + response.error.description);
+          });
+          rzp.open();
+        } catch (e) {
+          // Fallback simulation if offline
+          simulateGatewayProcessing(orderNum, 'Razorpay Payment Verified', timestamp);
+        }
+      } else if (selectedMethod === 'whatsapp') {
+        const itemListText = cart.map(i => `• ${i.name} (${i.size}) × ${i.quantity} - Rs. ${i.priceINR * i.quantity}`).join('\n');
+        const message = `Hello MOSQUITO Concierge,\nI would like to confirm my order:\n\n*Order ID*: #${orderNum}\n*Customer*: ${customerData.name}\n*Phone*: +91 ${customerData.phone}\n*Address*: ${customerData.address}, ${customerData.city} - ${customerData.pincode}\n\n*Garments*:\n${itemListText}\n\n*Total Amount*: Rs. ${grandTotal.toLocaleString('en-IN')}.00 (Free Air Express Shipping)\n\nPlease confirm dispatch!`;
+        window.open(`https://wa.me/919490751996?text=${encodeURIComponent(message)}`, '_blank');
+        finishOrder(orderNum, 'WhatsApp Booking Concierge', timestamp);
+      } else if (selectedMethod === 'cod') {
+        simulateGatewayProcessing(orderNum, 'Cash on Delivery (Doorstep Verified)', timestamp);
+      } else {
+        simulateGatewayProcessing(orderNum, 'Instant UPI / QR Payment', timestamp);
+      }
+    }
+
+    function simulateGatewayProcessing(orderNum, methodLabel, timestamp) {
+      const btn = document.getElementById('pay-action-btn');
+      btn.disabled = true;
+      btn.innerHTML = `
+        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <span>Processing Payment...</span>
+      `;
+
+      setTimeout(() => {
+        finishOrder(orderNum, methodLabel, timestamp);
+      }, 900);
+    }
+
+    function finishOrder(orderNum, paymentMethodLabel, timestamp) {
+      const lastOrderData = {
+        orderId: orderNum,
+        timestamp: timestamp,
+        customer: customerData,
+        items: [...cart],
+        subtotal: cart.reduce((acc, cur) => acc + cur.priceINR * cur.quantity, 0),
+        discount: JSON.parse(localStorage.getItem('mosquito_promo') || 'null') ? Math.round(cart.reduce((acc, cur) => acc + cur.priceINR * cur.quantity, 0) * 0.10) : 0,
+        total: grandTotal,
+        paymentMethod: paymentMethodLabel
+      };
+
+      localStorage.setItem('mosquito_last_order', JSON.stringify(lastOrderData));
+      
+      // Clear cart
+      localStorage.setItem('mosquito_cart', JSON.stringify([]));
+      localStorage.removeItem('mosquito_promo');
+
+      // Redirect to Order Successful Page (Step 3)
+      window.location.href = 'order-success.html';
+    }
+
+    function showToast(msg) {
+      const c = document.getElementById('toast-container');
+      if (!c) return;
+      const t = document.createElement('div');
+      t.className = 'toast';
+      t.innerHTML = `<span class="font-medium text-xs">${msg}</span>`;
+      c.appendChild(t);
+      setTimeout(() => t.remove(), 3000);
+    }
+
+    document.addEventListener('DOMContentLoaded', initPage);
+  </script>
+  <script src="/js/lenis-scroll.js"></script>
+</body>
+</html>

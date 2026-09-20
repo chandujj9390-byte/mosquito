@@ -1,0 +1,10 @@
+/assets/*        /assets/:splat        200
+/public/*        /public/:splat        200
+/styles/*        /styles/:splat        200
+/js/*            /js/:splat            200
+/logo.svg        /assets/logo.svg      200
+/checkout        /checkout.html        200
+/payment         /payment.html         200
+/order-success   /order-success.html   200
+/                /index.html           200
+/*               /index.html           200

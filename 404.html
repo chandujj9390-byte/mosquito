@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 - Page Not Found | MOSQUITO</title>
+  <meta name="description" content="The page or collection you are looking for is not available." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            brand: ['Cinzel', 'Playfair Display', 'serif'],
+            editorial: ['Cormorant Garamond', 'Playfair Display', 'serif'],
+            sans: ['Plus Jakarta Sans', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            mono: ['Space Grotesk', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="/styles/main.css" />
+</head>
+<body class="bg-[#F8F8F6] text-neutral-900 font-sans antialiased min-h-screen flex flex-col justify-between selection:bg-amber-100 selection:text-neutral-900">
+
+  <!-- Top Header -->
+  <header class="bg-white border-b border-neutral-200 sticky top-0 z-40">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 py-4 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3 group">
+        <img src="/assets/logo.svg" alt="MOSQUITO" class="w-8 h-8 object-contain transition-transform group-hover:scale-105" />
+        <span class="font-sans text-2xl font-black tracking-[0.15em] text-neutral-950 uppercase">MOSQUITO</span>
+      </a>
+
+      <a href="index.html" class="px-4 py-2 rounded-full border border-neutral-300 hover:bg-neutral-100 transition-colors uppercase font-mono font-bold text-[11px]">
+        ← Back to Shop
+      </a>
+    </div>
+  </header>
+
+  <!-- Main 404 Card -->
+  <main class="max-w-xl mx-auto px-4 py-16 sm:py-24 text-center flex-1 flex flex-col items-center justify-center">
+    <div class="bg-white rounded-3xl border border-neutral-200/90 p-8 sm:p-12 shadow-sm relative overflow-hidden w-full space-y-6">
+      <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-amber-400 via-neutral-950 to-amber-400"></div>
+
+      <div class="font-mono text-xs uppercase tracking-widest text-neutral-400 font-bold">
+        Error 404 • Resource Not Found
+      </div>
+
+      <h1 class="font-brand text-6xl sm:text-7xl font-bold text-neutral-950 tracking-tight">
+        404
+      </h1>
+
+      <div class="w-12 h-0.5 bg-amber-400 mx-auto"></div>
+
+      <p class="text-neutral-600 text-xs sm:text-sm max-w-sm mx-auto leading-relaxed">
+        The piece, page, or invoice you are looking for has been relocated or is currently unavailable.
+      </p>
+
+      <div class="pt-4 flex flex-col sm:flex-row gap-3 justify-center">
+        <a href="index.html" class="px-8 py-3.5 bg-neutral-950 hover:bg-black text-white rounded-full font-mono text-xs uppercase font-bold tracking-wider transition-all shadow-md">
+          Explore Garments & Collections →
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-neutral-200 py-6 text-center text-xs text-neutral-500 font-mono">
+    © 2026 MOSQUITO APPAREL PRIVATE LIMITED. ALL RIGHTS RESERVED.
+  </footer>
+
+  <script src="/js/lenis-scroll.js"></script>
+</body>
+</html>
